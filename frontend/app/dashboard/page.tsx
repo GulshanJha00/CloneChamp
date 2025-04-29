@@ -6,9 +6,9 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import MainNav from "@/components/main-nav"
+import MainNav from "@/components/Landing/main-nav"
 import UserNav from "@/components/user-nav"
-import Footer from "@/components/footer"
+import Footer from "@/components/Landing/footer"
 
 export default function DashboardPage() {
   return (

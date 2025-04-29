@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import MainNav from "@/components/main-nav"
-import Footer from "@/components/footer"
+import MainNav from "@/components/Landing/main-nav"
+import Footer from "@/components/Landing/footer"
 
 export default function ChallengesPage() {
   return (

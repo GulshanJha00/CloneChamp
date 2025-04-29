@@ -12,7 +12,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useToast } from "@/hooks/use-toast"
 import CodeEditor from "@/components/code-editor"
-import MainNav from "@/components/main-nav"
+import MainNav from "@/components/Landing/main-nav"
 
 export default function ChallengePage({ params }: { params: { id: string } }) {
   const { toast } = useToast()

@@ -18,7 +18,7 @@ export default function MainNav() {
         <Link href="/leaderboard" className="text-sm font-medium transition-colors hover:text-primary">
           Leaderboard
         </Link>
-        <Link href="/pricing" className="text-sm font-medium transition-colors hover:text-primary">
+        <Link href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
           Pricing
         </Link>
       </nav>

@@ -13,8 +13,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/hooks/use-toast"
-import MainNav from "@/components/main-nav"
-import Footer from "@/components/footer"
+import MainNav from "@/components/Landing/main-nav"
+import Footer from "@/components/Landing/footer"
 
 export default function UploadChallengePage() {
   const { toast } = useToast()
