@@ -9,8 +9,8 @@ export default function MainNav() {
         <span className="font-bold inline-block">CloneChamp</span>
       </Link>
       <nav className="hidden md:flex gap-6">
-        <Link href="/challenges" className="text-sm font-medium transition-colors hover:text-primary">
-          Challenges
+        <Link href="/problems" className="text-sm font-medium transition-colors hover:text-primary">
+          Problems
         </Link>
         <Link href="/challenges/upload" className="text-sm font-medium transition-colors hover:text-primary">
           Upload Design
