@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client"
 import MainNav from "@/components/Landing/main-nav";
 import Footer from "@/components/Landing/footer";
 import HowWork from "@/components/Landing/HowWork";
@@ -11,8 +10,10 @@ import ChallengePreview from "@/components/Landing/preview";
 import Testimonials from "@/components/Landing/Testimonial";
 
 export default function Home() {
+
+
   return (
-    <div className="flex min-h-screen bg-(--background) flex-col">
+    <div className="flex min-h-screen  flex-col">
       <MainNav />
       <main className="flex-1">
         <MainPage />

@@ -20,7 +20,7 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg">
-                    <Link href="/problems">
+                    <Link className='text-white' href="/problems">
                       Start Challenges <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -31,7 +31,7 @@ const MainPage = () => {
               </div>
               <div className="flex items-center justify-center">
                 <div className="relative h-[350px] w-full overflow-hidden rounded-xl border bg-gradient-to-b from-background/10 to-background/50 p-4 shadow-xl">
-                  <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+                  <div className="absolute  inset-0 bg-grid-pattern opacity-10"></div>
                   <div className="relative z-10 flex h-full flex-col rounded-lg border bg-background p-4 shadow-lg">
                     <div className="mb-4 flex items-center gap-2 border-b pb-2">
                       <div className="h-3 w-3 rounded-full bg-red-500"></div>

@@ -38,7 +38,7 @@ export default function Testimonials() {
             {testimonials.map((t, idx) => (
               <CarouselItem
                 key={idx}
-                className="bg-background p-8 rounded-lg shadow-xl max-w-[320px] mx-auto transition-transform duration-300 ease-in-out"
+                className="bg-background p-8 rounded-lg shadow-xl z-0 max-w-[320px] mx-auto transition-transform duration-300 ease-in-out"
               >
                 <p className="italic text-muted-foreground text-lg">“{t.quote}”</p>
                 <div className="mt-6 text-sm font-semibold">{t.name}</div>
