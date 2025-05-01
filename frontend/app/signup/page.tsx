@@ -45,7 +45,6 @@ const SignUp = () => {
 
   return (
     <>
-      <MainNav />
 
       <div className="min-h-screen  flex items-center justify-center  px-4">
         <div className="w-full max-w-md rounded-xl shadow-xl p-8 border border-[hsl(214.3,31.8%,91.4%)]">

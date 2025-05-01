@@ -5,14 +5,25 @@ import MainNav from "@/components/Landing/main-nav";
 import data from "./problemsData";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 const page = () => {
   const [selected, setSelected] = useState("all");
+  const [SearchQuery, setSearchQuery] = useState("");
+
+  const filteredSearch = data.filter((chal) => {
+    const matchesSearch =
+      chal.title.toLowerCase().includes(SearchQuery.toLowerCase()) ||
+      chal.id.toString().includes(SearchQuery.toLowerCase());
+    const matchesDifficulty =
+      selected === "all" || chal.difficulty.toLowerCase() === selected;
+
+    return matchesSearch && matchesDifficulty;
+  });
 
   return (
     <ProtectedRoute>
       <div className="">
-        <MainNav />
 
         <header className="container flex justify-between items-center border-b border-b-gray-600 pb-4">
           <div className=" flex flex-col pt-4 ">
@@ -21,12 +32,14 @@ const page = () => {
               Solve frontend challenges to improve your skills
             </h1>
           </div>
-          <div className="rounded-lg flex jusce items-center px-4 py-2 gap-4 border border-gray-600">
+          <div className="rounded-lg focus-within:outline-double focus:ring-2 flex justify-center items-center px-2 py-2 gap-4 border border-gray-600">
             <Search className="text-white " />
             <input
               type="text"
               name=""
-              className=" "
+              value={SearchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="focus:outline-none "
               placeholder="Search challanges..."
               id=""
             />
@@ -87,28 +100,39 @@ const page = () => {
       completions: 1245,
       image: "/placeholder.svg?height=200&width=400",
     } */}
-          {data.map((val, id) => (
-            <div key={id} className="h-max w-max hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl">
-              <img className="h-60 w-96 py-2 rounded-lg" src={val.image} alt="" />
-              <div className="flex justify-between items-center">
-                <h1 className="text-xl font-bold">
-                  {val.id}. {val.title}
-                </h1>
-                <p
-                  className={`text-xs border rounded-lg px-2 py-1 ${
-                    val.difficulty === "Easy"
-                      ? "bg-emerald-500"
-                      : val.difficulty === "Medium"
-                      ? "bg-amber-400"
-                      : val.difficulty === "Hard"
-                      ? "bg-rose-500"
-                      : "hidden"
-                  }`}
-                >
-                  {val.difficulty}
-                </p>
-              </div>
-              {/* <p className="text-wrap w-full ">{val.description}</p> */}
+          {filteredSearch.map((val, id) => (
+            <div
+              key={id}
+              className="h-full w-full hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl"
+            >
+              <Link className="cursor-pointer" href={val.id}>
+                <img
+                  className="h-60 w-96 py-2 rounded-lg"
+                  src={val.image}
+                  alt=""
+                />
+                <div className="flex justify-between mb-4  items-center">
+                  <h1 className="text-xl font-bold">
+                    {val.id}. {val.title}
+                  </h1>
+                  <p
+                    className={`text-xs border rounded-lg px-2 py-1 ${
+                      val.difficulty === "Easy"
+                        ? "bg-sky-500"
+                        : val.difficulty === "Medium"
+                        ? "bg-amber-400"
+                        : val.difficulty === "Hard"
+                        ? "bg-rose-500"
+                        : "hidden"
+                    }`}
+                  >
+                    {val.difficulty}
+                  </p>
+                </div>
+                <div className="w-full whitespace-normal">
+                  <p>{val.description}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </main>

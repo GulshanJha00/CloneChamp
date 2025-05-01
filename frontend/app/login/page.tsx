@@ -48,7 +48,6 @@ const Login = () => {
 
   return (
     <>
-      <MainNav />
       <div className="min-h-screen flex items-center justify-center  px-4">
         <div className="w-full border-gray-300  border max-w-md rounded-xl shadow-lg p-8">
           <h1 className="text-2xl font-semibold mb-6 text-center">Login</h1>

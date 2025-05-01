@@ -15,7 +15,7 @@ const Loading = () => {
       >
         <Loader2 className="animate-spin w-12 h-12 text-primary" />
         <h1 className="text-xl font-semibold">Loading the Challenge Zone...</h1>
-        <p className="text-muted-foreground text-sm">Hold tight! We’re setting up your coding arena.</p>
+        <p className="text-muted-foreground text-sm">Hold tight! We&apos;re setting up your coding arena.</p>
       </motion.div>
 
       <motion.div
