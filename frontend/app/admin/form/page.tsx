@@ -20,7 +20,7 @@ const page = () => {
     onAuthStateChanged (auth,(user)=>{
         if(user){
             let admin = user.uid;
-            if(admin === "PljNcHO4TQhkkAVuFiMLCVwoZe12"){
+            if(admin === process.env.NEXT_PUBLIC_ADMIN){
                 setVerify(true)
             }
             else{
