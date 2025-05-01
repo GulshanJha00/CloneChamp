@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 
 const Loading = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-foreground">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

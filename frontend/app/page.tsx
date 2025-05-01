@@ -1,5 +1,4 @@
 "use client"
-import MainNav from "@/components/Landing/main-nav";
 import Footer from "@/components/Landing/footer";
 import HowWork from "@/components/Landing/HowWork";
 import Pricing from "@/components/Landing/Pricing";

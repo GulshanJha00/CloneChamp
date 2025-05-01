@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import ProtectedRoute from "../protectedRoute";
-import MainNav from "@/components/Landing/main-nav";
 import data from "./problemsData";
 import { Search } from "lucide-react";
 import { useState } from "react";

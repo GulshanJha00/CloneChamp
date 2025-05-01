@@ -10,7 +10,6 @@ import {
 } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
 import { Button } from "@/components/ui/button";
-import MainNav from "@/components/Landing/main-nav";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const SignUp = () => {

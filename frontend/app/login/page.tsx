@@ -9,7 +9,6 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import { Button } from "@/components/ui/button";
-import MainNav from "@/components/Landing/main-nav";
 import app from "@/lib/firebaseConfig";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
