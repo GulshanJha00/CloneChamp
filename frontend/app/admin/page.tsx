@@ -4,6 +4,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loading from "../loading";
 import { useRouter } from "next/navigation";
+import ProtectedRoute from "../protectedRoute";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import app from "@/lib/firebaseConfig";
+import { verify } from "crypto";
 
 interface Question {
   qNo: number;
@@ -18,6 +22,21 @@ const page = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
+  const [verify, setVerify] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        let admin = user.uid;
+        if (admin === process.env.NEXT_PUBLIC_ADMIN) {
+          setVerify(true);
+        } else {
+          router.push("/");
+        }
+      }
+    });
+  }, []);
 
   const FetchQuestion = async () => {
     try {
@@ -34,7 +53,7 @@ const page = () => {
     }
   };
   useEffect(() => {
-    FetchQuestion();
+    if(verify)FetchQuestion();
   }, []);
 
   const handleEdit = (qNo: number) => {
@@ -54,7 +73,7 @@ const page = () => {
     }
   };
   return (
-    <>
+    <ProtectedRoute>
       {loading ? (
         <Loading />
       ) : (
@@ -128,7 +147,7 @@ const page = () => {
           </main>
         </div>
       )}
-    </>
+    </ProtectedRoute>
   );
 };
 
