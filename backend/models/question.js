@@ -3,7 +3,7 @@ const connection = require("../utils/db")
 connection()
 const QuestionSchema = mongoose.Schema({
     qNo:{
-        type: String,
+        type: Number,
         require: true,
     },
     title: {

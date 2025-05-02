@@ -7,6 +7,7 @@ import Link from "next/link";
 import axios from "axios";
 
 interface Question {
+  qNo:number,
   title: string;
   difficulty: string;
   description: string;
@@ -25,7 +26,6 @@ const page = () => {
           const response = await axios.get(
             "http://localhost:3001/api/get-question"
           );
-          console.log(response.data);
           setQuestions(response.data);
         } catch (error) {
           console.error("Error fetching questions:", error);
@@ -34,10 +34,10 @@ const page = () => {
       questions();
     }, []);
 
-  const filteredSearch = questions.filter((chal,index) => {
+  const filteredSearch = questions.filter((chal) => {
     const matchesSearch =
       chal.title.toLowerCase().includes(SearchQuery.toLowerCase()) ||
-      (index+1).toString().includes(SearchQuery.toLowerCase());
+      chal.qNo.toString().includes(SearchQuery.toLowerCase());
     const matchesDifficulty =
       selected === "all" || chal.difficulty.toLowerCase() === selected;
 
@@ -132,7 +132,7 @@ const page = () => {
                   />
                   <div className="flex justify-between mb-4  items-center">
                     <h1 className="text-xl font-bold">
-                      {id + 1}. {val.title || "No title available"}
+                      {val.qNo}. {val.title || "No title available"}
                     </h1>
                     <p
                       className={`text-xs border rounded-lg px-2 py-1 ${

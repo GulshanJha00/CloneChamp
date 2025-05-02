@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 
 const page = () => {
+  const [qNo, setqNo] = useState(0)
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("easy");
   const [description, setDescription] = useState("");
@@ -56,6 +57,7 @@ const page = () => {
       const imageUrl = data.secure_url;
 
       await axios.post("http://localhost:3001/api/upload-question", {
+        qNo,
         title,
         difficulty,
         description,
@@ -92,12 +94,12 @@ const page = () => {
                   Question Number
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="qNo"
                   placeholder="Question Number"
                   className="w-full p-2 border text-white rounded "
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={qNo}
+                  onChange={(e) => setqNo(e.target.value)}
                 />
               </div>
               <div>
