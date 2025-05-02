@@ -1,19 +1,43 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import ProtectedRoute from "../protectedRoute";
-import data from "./problemsData";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+
+interface Question {
+  title: string;
+  difficulty: string;
+  description: string;
+  colors: string;
+  imageUrl: string;
+}
 
 const page = () => {
   const [selected, setSelected] = useState("all");
   const [SearchQuery, setSearchQuery] = useState("");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  
+    useEffect(() => {
+      const questions = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:3001/api/get-question"
+          );
+          console.log(response.data);
+          setQuestions(response.data);
+        } catch (error) {
+          console.error("Error fetching questions:", error);
+        }
+      };
+      questions();
+    }, []);
 
-  const filteredSearch = data.filter((chal) => {
+  const filteredSearch = questions.filter((chal,index) => {
     const matchesSearch =
       chal.title.toLowerCase().includes(SearchQuery.toLowerCase()) ||
-      chal.id.toString().includes(SearchQuery.toLowerCase());
+      (index+1).toString().includes(SearchQuery.toLowerCase());
     const matchesDifficulty =
       selected === "all" || chal.difficulty.toLowerCase() === selected;
 
@@ -89,43 +113,49 @@ const page = () => {
         </header>
 
         <main className="container grid grid-cols-3 py-10 gap-10">
-
-          {filteredSearch.map((val, id) => (
-            <div
-              key={id}
-              className="h-full w-full hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl"
-            >
-              <Link className="cursor-pointer" href={`/problems/${val.title.toLowerCase().trim().replace(/\s+/g, '-')}`}>
-                <img
-                  className="h-60 w-96 py-2 rounded-lg"
-                  src={val.image}
-                  alt=""
-                />
-                <div className="flex justify-between mb-4  items-center">
-                  <h1 className="text-xl font-bold">
-                    {val.id}. {val.title}
-                  </h1>
-                  <p
-                    className={`text-xs border rounded-lg px-2 py-1 ${
-                      val.difficulty === "Easy"
-                        ? "bg-sky-500"
-                        : val.difficulty === "Medium"
-                        ? "bg-amber-400"
-                        : val.difficulty === "Hard"
-                        ? "bg-rose-500"
-                        : "hidden"
-                    }`}
-                  >
-                    {val.difficulty}
-                  </p>
-                </div>
-                <div className="w-full whitespace-normal">
-                  <p>{val.description}</p>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </main>
+            {filteredSearch.map((val, id) => (
+              <div
+                key={id}
+                className="h-full w-full hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl"
+              >
+                <Link
+                  className="cursor-pointer"
+                  href={`/problems/${val.title
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  <img
+                    className="h-80 w-96 p-2 mb-2 rounded-lg bg-contain hover:scale-[0.98] transition-all duration-300 ease-in-out transform border border-gray-500 shadow-lg"
+                    src={val.imageUrl}
+                    alt="Alternate"
+                  />
+                  <div className="flex justify-between mb-4  items-center">
+                    <h1 className="text-xl font-bold">
+                      {id + 1}. {val.title || "No title available"}
+                    </h1>
+                    <p
+                      className={`text-xs border rounded-lg px-2 py-1 ${
+                        val.difficulty === "easy"
+                          ? "bg-sky-500"
+                          : val.difficulty === "medium"
+                          ? "bg-amber-400"
+                          : val.difficulty === "hard"
+                          ? "bg-rose-500"
+                          : "hidden"
+                      }`}
+                    >
+                      {val.difficulty[0].toUpperCase() +
+                        val.difficulty.slice(1)}
+                    </p>
+                  </div>
+                  <div className="w-full whitespace-normal">
+                    <p>{val.description}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </main>
       </div>
     </ProtectedRoute>
   );
