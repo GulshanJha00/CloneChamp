@@ -89,22 +89,13 @@ const page = () => {
         </header>
 
         <main className="container grid grid-cols-3 py-10 gap-10">
-          {/* {
-      id: "1",
-      title: "Product Card Component",
-      description: "Create a responsive product card with image, title, price, and add to cart button.",
-      difficulty: "Easy",
-      type: "Official",
-      tags: ["HTML", "CSS", "Component"],
-      completions: 1245,
-      image: "/placeholder.svg?height=200&width=400",
-    } */}
+
           {filteredSearch.map((val, id) => (
             <div
               key={id}
               className="h-full w-full hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl"
             >
-              <Link className="cursor-pointer" href={val.id}>
+              <Link className="cursor-pointer" href={`/problems/${val.title.toLowerCase().trim().replace(/\s+/g, '-')}`}>
                 <img
                   className="h-60 w-96 py-2 rounded-lg"
                   src={val.image}
