@@ -3,19 +3,38 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
+import Footer from "@/components/Landing/footer";
 
+interface Question {
+  qNo:number,
+  title: string;
+  difficulty: string;
+  description: string;
+  colors: string;
+  imageUrl: string;
+}
+const defaultQuestion: Question = {
+  qNo: 0,
+  title: "",
+  description: "",
+  difficulty: "",
+  colors: "",
+  imageUrl: "",
+};
 const Page = () => {
   const [editor, setEditor] = useState("html");
-  const [responseData, setResponseData] = useState("");
+  const [responseData, setResponseData] = useState<Question>(defaultQuestion);
   const params = useParams();
   const { id } = params;
-  const title = decodeURIComponent(id);
+  const title = decodeURIComponent(id as string);
 
   const getIMage = async () => {
     const response = await axios.post(`http://localhost:3001/api/get-target`, {
       title,
     });
+    if (response.data && response.data.length > 0) {
     setResponseData(response.data[0]);
+  }
   };
 
   useEffect(() => {
@@ -23,17 +42,26 @@ const Page = () => {
   }, []);
 
   return (
+    <>
+    
     <div className="flex h-screen w-full text-white bg-[#0e0e0e]">
       {/* Left Panel */}
-      <div className="w-1/2 flex flex-col border-r border-gray-800">
+      <div className="w-1/2 h-full flex flex-col border-r border-gray-800">
         {/* HTML Editor */}
-        <div className="h-1/2">
-          <header className="p-2 bg-gray-900 border-b border-gray-700">
+        <div className="h-1/2 ">
+          <header className="p-1 bg-gray-900 border-b border-gray-700">
             <span className="text-sm font-semibold">HTML</span>
           </header>
           <Editor
-            language="html"
+            defaultLanguage="html"
             theme="vs-dark"
+            options={{
+              fontSize: 13,
+              fontFamily: "'Source Code Pro', monospace",
+              minimap: { enabled: false },
+              scrollBeyondLastLine: true,
+              wordWrap: "on",
+            }}
             defaultValue={`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,19 +74,26 @@ const Page = () => {
     <p>Recreate the target given below</p>
 </body>
 </html>`}
-            options={{ fontSize: 14 }}
             className="w-full h-full"
           />
         </div>
 
         {/* CSS Editor */}
-        <div className="h-1/2 pt-10">
+        <div className="h-[calc(50%-30px)] z-20">
           <header className="p-1 bg-gray-800 border-b border-gray-700 text-white text-sm font-semibold">
             CSS
           </header>
           <Editor
             language="css"
             theme="vs-dark"
+            options={{
+              fontSize: 13,
+              fontFamily: "'Source Code Pro', monospace",
+              minimap: { enabled: false },
+              scrollBeyondLastLine: true,
+              wordWrap: "on",
+            }}
+          
             defaultValue={`body {
   margin: 0;
   padding: 0;
@@ -66,17 +101,16 @@ const Page = () => {
 }
 /* Write your CSS code here */
 `}
-            options={{ fontSize: 14 }}
-            className="w-full"
+            className="w-full h-[calc(100%+3px)]"
           />
         </div>
       </div>
 
       {/* Right Panel */}
-      <div className="w-1/2 flex flex-col border-r border-gray-800 overflow-y-auto">
+      <div className="w-1/2 h-full flex flex-col border-r border-gray-800 overflow-y-auto">
         {/* Output Window */}
         <div className="h-1/2 mb-16 w-full">
-          <header className="p-2 bg-gray-900 border-b border-gray-700">
+          <header className="p-1 bg-gray-900 border-b border-gray-700">
             <span className="text-sm font-semibold">Output Window</span>
           </header>
           <div className="h-80 w-80 bg-green-500 m-4 rounded-lg border border-gray-700" />
@@ -151,12 +185,19 @@ const Page = () => {
         </div>
       </div>
     </div>
+      <Footer/>
+    </>
   );
 };
 
 export default Page;
 
-const ColorBox = ({ color }) => {
+
+interface ColorBoxProps {
+  color: string;
+}
+
+const ColorBox = ({ color }:ColorBoxProps) => {
   const [copied, setCopied] = useState(false);
 
   const copyColor = () => {
@@ -180,4 +221,3 @@ const ColorBox = ({ color }) => {
   );
 };
 
-// #3A515A,#9D6E49,#E1B17A,#5896B3,#FAEFDD,#E78E81,#C37464,#FAEAD7,#282928,#4A8295
