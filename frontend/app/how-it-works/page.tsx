@@ -58,7 +58,7 @@ const HowItWorks = () => {
 
         <div className="mt-12">
           <Button asChild size="lg">
-            <Link href="/signup">Get Started Now</Link>
+            <Link href="/problems">Get Started Now</Link>
           </Button>
         </div>
       </div>

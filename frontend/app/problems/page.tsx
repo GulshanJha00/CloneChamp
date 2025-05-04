@@ -120,10 +120,7 @@ const page = () => {
               >
                 <Link
                   className="cursor-pointer"
-                  href={`/problems/${val.title
-                    .toLowerCase()
-                    .trim()
-                    .replace(/\s+/g, "-")}`}
+                  href={`/problems/${val.title}`}
                 >
                   <img
                     className="h-80 w-96 p-2 mb-2 rounded-lg bg-contain hover:scale-[0.98] transition-all duration-300 ease-in-out transform border border-gray-500 shadow-lg"

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import ProtectedRoute from "../protectedRoute";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
-import { verify } from "crypto";
 
 interface Question {
   qNo: number;
@@ -22,7 +21,6 @@ const page = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const [verify, setVerify] = useState(false);
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -30,7 +28,7 @@ const page = () => {
       if (user) {
         let admin = user.uid;
         if (admin === process.env.NEXT_PUBLIC_ADMIN) {
-          setVerify(true);
+          
         } else {
           router.push("/");
         }
@@ -53,7 +51,7 @@ const page = () => {
     }
   };
   useEffect(() => {
-    if(verify)FetchQuestion();
+    FetchQuestion();
   }, []);
 
   const handleEdit = (qNo: number) => {
