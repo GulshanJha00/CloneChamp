@@ -1,7 +1,7 @@
 const playwright = require("playwright");
 const { PNG } = require("pngjs");
-const pixelmatch = require("pixelmatch");
 const fs = require("fs");
+const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require('sharp');
 
 const getSolution = async (req, res) => {
@@ -16,13 +16,11 @@ const getSolution = async (req, res) => {
 
     // Setting headless browser
     browser = await playwright.chromium.launch({ headless: true });
-    const page = await browser.newPage({ viewport: { width: 320, height: 320 } });
+    const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } });
     await page.setContent(finalCode);
 
     // Taking screenshot
     const screenshotBuffer = await page.screenshot();
-    fs.writeFileSync("screenshot.png", screenshotBuffer);
-    console.log("Screenshot saved to screenshot.png");
     console.log("Screenshot buffer size:", screenshotBuffer.length); // Log size
 
     // Fetching and resizing target image
@@ -34,10 +32,8 @@ const getSolution = async (req, res) => {
     }
     const targetImageBuffer = await targetImageResponse.arrayBuffer();
     const resizedTargetBuffer = await sharp(Buffer.from(targetImageBuffer))
-      .resize(320, 320)
+      .resize(1024, 1024)
       .toBuffer();
-    fs.writeFileSync("resized_target.png", Buffer.from(resizedTargetBuffer)); // Save resized
-    console.log("Resized target image saved to resized_target.png");
     console.log("Resized target buffer size:", resizedTargetBuffer.length); // Log size
 
     // Read PNGs
@@ -48,21 +44,21 @@ const getSolution = async (req, res) => {
     const height = userPng.height;
     const diff = new PNG({ width, height });
 
-    console.log(`User PNG dimensions: ${userPng.width}x${userPng.height}`);
-    console.log(`Target PNG dimensions: ${targetPng.width}x${targetPng.height}`);
 
+    const pixelmatchOptions = {
+      threshold: 0.1,
+      alpha: 0.1, 
+      includeAA: true 
+    };
     const numDiffPixels = pixelmatch(
       userPng.data,
       targetPng.data,
       diff.data,
       width,
       height,
-      { threshold: 0.3 }
+      pixelmatchOptions
     );
 
-    // Save the difference image
-    fs.writeFileSync("difference.png", PNG.sync.write(diff));
-    console.log("Difference image saved to difference.png");
 
     const totalPixels = width * height;
     const percentageMatch = ((totalPixels - numDiffPixels) / totalPixels) * 100;
