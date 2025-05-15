@@ -4,29 +4,42 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { CheckCircle, Zap, Rocket, Users } from 'lucide-react'
+import { CheckCircle, Zap, Rocket, Users, Search } from 'lucide-react'
 
 const steps = [
   {
-    title: 'Step 1: Choose a Challenge',
-    description: 'Browse through 100+ frontend problems categorized by difficulty (Easy, Medium, Hard).',
-    icon: <CheckCircle className="h-8 w-8 text-green-500" />,
+    title: 'Step 1: Pick from Two Challenge Types',
+    description:
+      'Solve custom HTML/CSS challenges crafted by the platform, or choose from real UI designs uploaded by community designers.',
+    icon: <Users className="h-8 w-8 text-blue-500" />,
   },
   {
-    title: 'Step 2: Write Code',
-    description: 'Use the built-in code editor to solve challenges with live coding support.',
+    title: 'Step 2: Solve with Code',
+    description: 'Use the built-in live code editor to replicate the UI using HTML and CSS.',
     icon: <Zap className="h-8 w-8 text-yellow-500" />,
   },
   {
-    title: 'Step 3: Get Real-Time Feedback',
-    description: 'Your code is automatically scored based on pixel-perfect accuracy. Aim for 95% or higher to pass.',
+    title: 'Step 3: Designers Can Upload UI Challenges',
+    description: 'Designers can submit real-world UI/UX layouts as coding challenges to get frontend solutions or showcase their work.',
+    icon: <Users className="h-8 w-8 text-blue-500" />,
+  },
+  {
+    title: 'Step 4: Choose a Challenge',
+    description: 'Browse challenges based on difficulty (Easy, Medium, Hard) and pick one to solve.',
+    icon: <CheckCircle className="h-8 w-8 text-green-500" />,
+  },
+  
+  {
+    title: 'Step 5: Earn XP from Pixel-Perfect Match',
+    description: 'Your layout is scored automatically by matching against the original design provided by developers or by the platform. Achieve 95% or more to earn XP.',
     icon: <Rocket className="h-8 w-8 text-purple-500" />,
   },
   {
-    title: 'Step 4: Collaborate with Designers',
-    description: 'Designers upload their UI/UX designs, and developers solve them to earn XP or real value.',
-    icon: <Users className="h-8 w-8 text-blue-500" />,
-  },
+    title: "Step 6: Browse Design Challenges",
+    description: "Explore designer-submitted layouts you can use for practice or personal projects.",
+    icon: <Search className="h-8 w-8 text-purple-500" />,
+  }
+  
 ]
 
 const HowItWorks = () => {
@@ -35,7 +48,7 @@ const HowItWorks = () => {
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-4xl font-bold mb-4">How It Works</h1>
         <p className="text-muted-foreground mb-12">
-          Get started with CloneChamp in just a few steps. Solve frontend challenges, earn XP, and collaborate with designers!
+          CloneChamp connects designers and developers. Designers upload creative challenges, and developers sharpen their frontend skills by solving them!
         </p>
         <div className="space-y-8">
           {steps.map((step, i) => (

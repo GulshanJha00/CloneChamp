@@ -28,8 +28,8 @@ export default function MainNav() {
           <Link href="/problems" className="text-sm font-medium transition-colors hover:text-primary">
             Problems
           </Link>
-          <Link href="/challenges/upload" className="text-sm font-medium transition-colors hover:text-primary">
-            Upload Design
+          <Link href="/designers" className="text-sm font-medium transition-colors hover:text-primary">
+            Designer's Section
           </Link>
           <Link href="/leaderboard" className="text-sm font-medium transition-colors hover:text-primary">
             Leaderboard

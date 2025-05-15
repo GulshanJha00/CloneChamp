@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
 import Footer from "@/components/Landing/footer";
+import { toast } from "react-toastify";
 
 interface Question {
   qNo: number;
@@ -26,7 +27,7 @@ const Page = () => {
   const [finalCode, setFinalCode] = useState("");
   const [htmlCode, setHtmlCode] = useState(
     `<body>
-      <h1 class="text-5xl">Your display will be shown here</h1>
+      <h1 class="font-bold underline">Your display will be shown here</h1>
       <p>Recreate the target given below</p>
 </body>`
   );
@@ -37,13 +38,13 @@ const Page = () => {
 }`
   );
   const [responseData, setResponseData] = useState<Question>(defaultQuestion);
-  const [showTarget, setShowTarget] = useState(true); // State to toggle between target and user's build
+  const [showTarget, setShowTarget] = useState(true); 
 
   const params = useParams();
   const { id } = params;
   const title = decodeURIComponent(id as string);
 
-  const getIMage = async () => {
+  const getImage = async () => {
     const response = await axios.post(`http://localhost:3001/api/get-target`, {
       title,
     });
@@ -53,7 +54,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    getIMage();
+    getImage();
   }, []);
 
   useEffect(() => {
@@ -73,6 +74,19 @@ const Page = () => {
     `);
   }, [htmlCode, cssCode]);
 
+  const handleRun = async () =>{
+    if(!finalCode || !responseData.imageUrl){
+      toast.error("No code written");
+    }
+    try {
+      const response = await axios.post("http://localhost:3001/api/get-solution",{
+        finalCode,
+        target: responseData.imageUrl
+      })
+    } catch (error) {
+      
+    }
+  }
   return (
     <>
       <div className="flex h-screen w-full text-white bg-[#0e0e0e]">
@@ -95,12 +109,7 @@ const Page = () => {
                 scrollBeyondLastLine: true,
                 wordWrap: "on",
               }}
-              defaultValue={`<body>
-    <!-- You can also use tailwind css. Script file is already added-->
-    <h1>Your display will be shown here</h1>
-    <p>Recreate the target given below</p>
-  </body>
-  `}
+            
               className="w-full h-full"
             />
           </div>
@@ -122,34 +131,25 @@ const Page = () => {
                 scrollBeyondLastLine: true,
                 wordWrap: "on",
               }}
-              defaultValue={`/* Write your CSS code here */`}
               className="w-full h-[calc(100%+3px)]"
             />
           </div>
         </div>
 
-        {/* Right Panel */}
-        <div className="w-1/2 h-full flex flex-col border-r border-gray-800 overflow-y-auto">
+        <div className="w-1/2 h-full flex flex-col border-r bg-gray-900 border-gray-800 overflow-y-auto">
           <div className="h-1/2 relative mb-2 w-full">
-            <header className="p-1 z-10 bg-gray-900 border-b border-gray-700 shadow-md">
-              <span className="text-sm font-semibold text-white">
+            <header className="p-1 z-10 flex justify-between items-center px-10 bg-gray-900 border-b border-gray-700 shadow-md">
+              <span className="text-base font-semibold text-white">
                 Output Window
               </span>
+              <span onClick={handleRun} className="text-base cursor-pointer bg-sky-300 text-black p-2 rounded-lg  font-semibold ">
+                Run
+              </span>
             </header>
-            
-
-            <div
-  className="absolute top-10 z-0 h-full w-full bg-black bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"
-></div>
-
-
-
-
           
             <div className="h-full w-full flex justify-center items-center">
-              <div className="h-80 w-80 bg-gray-800 m-4 rounded-lg border border-gray-700 overflow-hidden shadow-xl relative">
-                {/* Conditionally rendering the iframe or target image */}
-                {showTarget ? (
+              <div className="h-80 w-80 bg-gray-600 m-4 rounded-lg border border-gray-700 overflow-hidden shadow-xl relative">
+                {showTarget && responseData.imageUrl ? (
                   <img
                     src={responseData.imageUrl}
                     alt="Target"
@@ -168,19 +168,17 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Toggle Compare Button */}
           <div className="p-2 z-10 text-center">
             <button
               onClick={() => setShowTarget((prev) => !prev)}
               className="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-all"
             >
-              {showTarget ? "Compare" : "Show My Build"}
+              {showTarget ? "Live Preview" : "Compare"}
             </button>
           </div>
-
-          {/* Target Info */}
-          <div className="h-1/2 w-full bg-gray-800 shadow-lg">
-            <header className="p-1 bg-gray-900 border-b border-gray-700">
+          
+          <div className="h-1/2 w-full bg-gray-900 shadow-lg">
+            <header className="p-1 bg-gray-900 ">
               <span className="text-lg font-semibold text-yellow-400">
                 Recreate this target
               </span>
