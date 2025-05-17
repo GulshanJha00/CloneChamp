@@ -3,6 +3,7 @@ const { PNG } = require("pngjs");
 const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require('sharp');
 const QuestionSchema = require("../models/question");
+const fetch = require("node-fetch")
 
 const getSolution = async (req, res) => {
   let browser;
