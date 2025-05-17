@@ -53,7 +53,6 @@ const Page = () => {
     });
     if (response.data && response.data.length > 0) {
       setResponseData(response.data[0]);
-      console.log(response.data[0])
       if(response.data[0].html_sol !== "" || response.data[0].css_sol !== ""){
         setHtmlCode( response.data[0].html_sol)
         setCssCode(response.data[0].css_sol)
@@ -88,7 +87,6 @@ const Page = () => {
       toast.error("No code written");
     }
     try {
-      console.log("Sending to backend")
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/get-solution`,
         {
