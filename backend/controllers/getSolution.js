@@ -2,19 +2,28 @@ const playwright = require("playwright");
 const { PNG } = require("pngjs");
 const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require('sharp');
+const QuestionSchema = require("../models/question");
 
 const getSolution = async (req, res) => {
   let browser;
   try {
-    const { finalCode, target } = req.body;
+    const {title, finalCode,target,htmlCode,cssCode } = req.body;
     if (!finalCode || !target) {
       return res
         .status(400)
         .json({ error: "Missing finalCode or targetImageUrl" });
     }
+    console.log(title)
+    const schema = await QuestionSchema.findOne({title : title})
+    
+    schema.html_sol = htmlCode
+    schema.css_sol = cssCode
+    await schema.save();
+
+
 
     browser = await playwright.chromium.launch({ headless: true }); //headless browser
-    const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } }); //
+    const page = await browser.newPage({ viewport: { width: 340, height: 340 } }); //
     await page.setContent(finalCode);
 
     // Taking screenshot
@@ -29,8 +38,9 @@ const getSolution = async (req, res) => {
     }
     const targetImageBuffer = await targetImageResponse.arrayBuffer();
     const resizedTargetBuffer = await sharp(Buffer.from(targetImageBuffer))
-      .resize(1024, 1024)
-      .toBuffer();
+    .resize(340, 340)
+    .png()
+    .toBuffer();
 
     // Read PNGs
     const userPng = PNG.sync.read(screenshotBuffer);
@@ -40,10 +50,9 @@ const getSolution = async (req, res) => {
     const height = userPng.height;
     const diff = new PNG({ width, height });
 
-
     const pixelmatchOptions = {
       threshold: 0.1,
-      alpha: 0.1, 
+      alpha: 1.0,
       includeAA: true 
     };
     const numDiffPixels = pixelmatch(
@@ -58,8 +67,11 @@ const getSolution = async (req, res) => {
 
     const totalPixels = width * height;
     const percentageMatch = ((totalPixels - numDiffPixels) / totalPixels) * 100;
+    if(percentageMatch >= 85){
+      schema.solved = true;
+      await schema.save()
+    }
 
-    console.log(" Match Percentage Is :- " + percentageMatch);
     res.status(200).json({ percentageMatch });
   } catch (err) {
     console.error(err);

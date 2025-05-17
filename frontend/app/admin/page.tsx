@@ -72,6 +72,18 @@ const page = () => {
   };
   return (
     <ProtectedRoute>
+      <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
+        <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
+          <h2 className="text-xl font-bold mb-2">
+            Desktop Experience Required
+          </h2>
+          <p className="text-sm text-gray-300">
+            CampCode is optimized for larger screens to provide the best
+            experience. Please access this platform from a desktop or laptop
+            device.
+          </p>
+        </div>
+      </div>
       {loading ? (
         <Loading />
       ) : (
@@ -88,61 +100,63 @@ const page = () => {
             </div>
           </header>
 
-          <main className="container grid grid-cols-3 py-10 gap-10">
-            {questions.map((val, id) => (
-              <div
-                key={id}
-                className="h-full w-full hover:scale-[1.02] transition-all ease-linear p-4 bg-gray-800 rounded-xl"
-              >
-                <img
-                  className="h-80 w-96 p-2 mb-2 rounded-lg bg-contain hover:scale-[0.98] transition-all duration-300 ease-in-out transform border border-gray-500 shadow-lg"
-                  src={val.imageUrl}
-                  alt="Alternate"
-                />
-                <div className="flex justify-between mb-4  items-center">
-                  <h1 className="text-xl font-bold">
-                    {val.qNo}. {val.title || "No title available"}
-                  </h1>
-                  <p
-                    className={`text-xs border rounded-lg px-2 py-1 ${
-                      val.difficulty === "easy"
-                        ? "bg-sky-500"
-                        : val.difficulty === "medium"
-                        ? "bg-amber-400"
-                        : val.difficulty === "hard"
-                        ? "bg-rose-500"
-                        : "hidden"
-                    }`}
-                  >
-                    {val.difficulty[0].toUpperCase() + val.difficulty.slice(1)}
-                  </p>
-                </div>
-                <div className="w-full whitespace-normal mb-2">
-                  <p>{val.description}</p>
-                </div>
-                <div className="flex justify-around items-center z-50">
-                  <button
-                    onClick={() => handleEdit(val.qNo)}
-                    className="px-4 py-2 hover:bg-blue-900 bg-blue-700 rounded-lg"
-                  >
-                    Edit
-                  </button>
-                  {deleted ? (
-                    <button className="px-4 py-2 bg-red-800 rounded-lg">
-                      Deleting
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleDelete(val.qNo)}
-                      className="px-4 py-2 hover:bg-red-800 bg-red-700 rounded-lg"
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </main>
+          <main className="px-4 py-10">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {questions.map((val, id) => (
+      <div
+        key={id}
+        className="hover:scale-[1.02] transition-all ease-linear p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md flex flex-col"
+      >
+        <img
+          className="h-60 w-full object-contain mb-2 rounded-lg border border-gray-300 shadow-sm"
+          src={val.imageUrl}
+          alt="Alternate"
+        />
+
+        <div className="flex justify-between items-center mb-2">
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {val.qNo}. {val.title || "No title available"}
+          </h1>
+          <span
+            className={`text-xs font-semibold text-white px-2 py-1 rounded ${
+              val.difficulty === "easy"
+                ? "bg-sky-500"
+                : val.difficulty === "medium"
+                ? "bg-amber-500"
+                : val.difficulty === "hard"
+                ? "bg-rose-600"
+                : "bg-gray-400"
+            }`}
+          >
+            {val.difficulty?.[0].toUpperCase() + val.difficulty?.slice(1)}
+          </span>
+        </div>
+
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">{val.description}</p>
+
+        <div className="mt-auto flex justify-between">
+          <button
+            onClick={() => handleEdit(val.qNo)}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+          >
+            Edit
+          </button>
+          {deleted ? (
+            <button className="px-4 py-2 bg-red-400 text-white rounded">Deleting</button>
+          ) : (
+            <button
+              onClick={() => handleDelete(val.qNo)}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</main>
+
         </div>
       )}
     </ProtectedRoute>

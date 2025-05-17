@@ -46,7 +46,17 @@ const page = () => {
 
   return (
     <ProtectedRoute>
-      <div className="">
+      <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
+        <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
+          <h2 className="text-xl font-bold mb-2">Desktop Experience Required</h2>
+          <p className="text-sm text-gray-300">
+          CampCode is optimized for larger screens to provide the best experience. Please access this platform from a desktop or laptop device.
+
+          </p>
+        </div>
+      </div>
+
+      <div className="lg:block">
         <header className="container flex justify-between items-center border-b border-b-gray-600 pb-4">
           <div className=" flex flex-col pt-4 ">
             <h1 className="text-3xl font-bold">Challanges</h1>
@@ -111,17 +121,24 @@ const page = () => {
           </button>
         </header>
 
-        <main className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
+        <main className="container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
           {filteredSearch.map((val, id) => (
             <Link
               key={id}
               href={`/problems/${val.title}`}
-              className="flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
+              className="relative hover:scale-[1.01] flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
             >
+              {/* Solved badge */}
+              {val.solved && (
+                <div className="absolute top-2 left-2 text-emerald-400 px-3 py-0.5 rounded-full bg-neutral-900  text-[11px] font-medium flex items-center gap-1 border border-white  ">
+                  <span className="text-sm text-emerald-600">✔</span> Solved
+                </div>
+              )}
+
               <img
                 src={val.imageUrl}
                 alt="Alternate"
-                className="w-full h-52 object-contain bg-gray-900 p-4 border-b border-gray-700"
+                className="w-full h-52 object-contain bg-gray-900 border-b border-gray-700"
               />
 
               <div className="flex flex-col h-full p-4">

@@ -164,7 +164,7 @@ const page = () => {
                 <input
                   type="text"
                   id="colors"
-                  placeholder="Enter condition"
+                  placeholder="Enter Colors"
                   className="w-full p-2 border rounded "
                   value={colors}
                   onChange={(e) => setColors(e.target.value)}

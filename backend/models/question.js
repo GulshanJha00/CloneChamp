@@ -25,6 +25,18 @@ const QuestionSchema = mongoose.Schema({
     imageUrl: {
         type: String,
         require: true,
+    },
+    html_sol: {
+        type: String,
+        default: "",
+    },
+    css_sol: {
+        type: String,
+        default: "",
+    },
+    solved: {
+        type: Boolean,
+        default: false
     }
 }) 
 module.exports = mongoose.model("QuestionSchema",QuestionSchema)

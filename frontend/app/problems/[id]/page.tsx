@@ -24,6 +24,7 @@ const defaultQuestion: Question = {
 };
 
 const Page = () => {
+  const [isHovering, setIsHovering] = useState(false)
   const [finalCode, setFinalCode] = useState("");
   const [htmlCode, setHtmlCode] = useState(
     `<body>
@@ -39,7 +40,8 @@ const Page = () => {
   );
   const [responseData, setResponseData] = useState<Question>(defaultQuestion);
   const [showTarget, setShowTarget] = useState(false);
-  const [run, setRun] = useState("Run")
+  const [run, setRun] = useState("Run");
+
 
   const params = useParams();
   const { id } = params;
@@ -51,6 +53,11 @@ const Page = () => {
     });
     if (response.data && response.data.length > 0) {
       setResponseData(response.data[0]);
+      console.log(response.data[0])
+      if(response.data[0].html_sol !== "" || response.data[0].css_sol !== ""){
+        setHtmlCode( response.data[0].html_sol)
+        setCssCode(response.data[0].css_sol)
+      }
     }
   };
 
@@ -76,7 +83,7 @@ const Page = () => {
   }, [htmlCode, cssCode]);
 
   const handleRun = async () => {
-    setRun("Running..")
+    setRun("Running..");
     if (!finalCode || !responseData.imageUrl) {
       toast.error("No code written");
     }
@@ -84,50 +91,71 @@ const Page = () => {
       const response = await axios.post(
         "http://localhost:3001/api/get-solution",
         {
+          title,
           finalCode,
           target: responseData.imageUrl,
+          htmlCode,
+          cssCode
         }
       );
-      if (response.data.percentageMatch > 95) {
+      if (response.data.percentageMatch >= 85) {
         toast.success(
           <div className="w-full bg-black text-white shadow-sm text-sm font-medium">
-            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}%.  
+            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}
+            %.
             <br />
-            <span className="text-green-400">Submission accepted. Omedeto!!</span>
+            <span className="text-green-400">
+              Submission accepted. Omedeto!!
+            </span>
           </div>,
           {
             style: {
-              background: 'black',
-              border: '1px solid white',
-              color: 'white',
+              background: "black",
+              border: "1px solid white",
+              color: "white",
             },
           }
         );
+      
       } else {
         toast.error(
           <div className="w-full bg-black text-white shadow-sm text-sm font-medium">
-            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}%.  
+            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}
+            %.
             <br />
-            <span className="text-red-400">Your solution is less than 95%. Please try again.</span>
+            <span className="text-red-400">
+              Your solution is less than 95%. Please try again.
+            </span>
           </div>,
           {
             style: {
-              background: 'black',
-              border: '1px solid white',
-              color: 'white',
+              background: "black",
+              border: "1px solid white",
+              color: "white",
             },
           }
         );
       }
-      
-    } catch (error) {}
-    finally{
-      setRun("Run")
+    } catch (error) {
+    } finally {
+      setRun("Run");
     }
   };
   return (
     <>
-      <div className="flex h-screen w-full text-white bg-[#0e0e0e]">
+    <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
+        <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
+          <h2 className="text-xl font-bold mb-2">
+            Desktop Experience Required
+          </h2>
+          <p className="text-sm text-gray-300">
+            CampCode is optimized for larger screens to provide the best
+            experience. Please access this platform from a desktop or laptop
+            device.
+          </p>
+        </div>
+      </div>
+      <div className="lg:flex h-screen w-full text-white bg-[#0e0e0e]">
         {/* Left Panel */}
         <div className="w-1/2 h-full flex flex-col border-r border-gray-800">
           {/* HTML Editor */}
@@ -174,51 +202,66 @@ const Page = () => {
         </div>
 
         <div className="w-1/2 h-full flex flex-col border-r bg-gray-900 border-gray-800 overflow-y-auto">
-          <div className="h-1/2 relative mb-2 w-full">
-            <header className="p-1 z-10 flex justify-between items-center px-10 bg-gray-900 border-b border-gray-700 shadow-md">
-              <span className="text-base font-semibold text-white">
+          <div className="h-1/2 w-full relative mb-4">
+            <header className="px-6 py-3 bg-gray-900 border-b border-gray-700 shadow-md flex justify-between items-center">
+              <span className="text-lg font-bold text-white">
                 Output Window
               </span>
             </header>
 
-            <div className="h-full w-full flex justify-center items-center">
-              <div className="h-80 w-80 bg-gray-600 m-4 rounded-lg border border-gray-700 overflow-hidden shadow-xl relative">
-                {showTarget && responseData.imageUrl ? (
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-4">
+              <div className="w-[340px] h-[340px] bg-gray-700 rounded-xl border border-gray-600 shadow-lg overflow-hidden relative"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              >
+              
+              {(isHovering || showTarget) && responseData.imageUrl ? (
                   <img
                     src={responseData.imageUrl}
                     alt="Target"
-                    className="w-full h-full object-contain rounded-lg"
+                    className="w-full h-full object-contain"
                   />
+                ) : !responseData.imageUrl ? (
+                  <div className="text-white text-center p-4">No target image available</div>
                 ) : (
                   <iframe
                     srcDoc={finalCode}
                     title="Live Preview"
                     sandbox="allow-scripts allow-same-origin"
                     frameBorder="0"
-                    className="w-full h-full rounded-lg relative z-10"
+                    className="w-full h-full"
                   />
                 )}
               </div>
-              <div className="p-2  h-full z-10 text-center flex justify-center flex-col gap-5">
-                <button
+
+              <div className="flex flex-col gap-4 text-center">
+                <button title="View your live output preview"
                   onClick={() => setShowTarget(false)}
-                  className={showTarget? "px-5 py-2 rounded-md text-black bg-yellow-400 hover:bg-yellow-300 font-semibold" :  "px-5 py-2 rounded-md text-black bg-yellow-500 font-semibold"}
+                  className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                    showTarget
+                      ? "bg-yellow-400 hover:bg-yellow-300 text-black"
+                      : "bg-yellow-600 text-black"
+                  }`}
                 >
                   Live Preview
                 </button>
                 <button
                   onClick={() => setShowTarget(true)}
-                  className={showTarget?"px-5 py-2 rounded-md text-black bg-yellow-600 font-semibold" : "px-5 py-2 rounded-md text-black bg-yellow-400 hover:bg-yellow-300 font-semibold" }
+                  className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                    showTarget
+                      ? "bg-yellow-600 text-black"
+                      : "bg-yellow-400 hover:bg-yellow-300 text-black"
+                  }`}
                 >
                   Question
                 </button>
                 <button
                   onClick={handleRun}
-                  className="px-5 py-2 rounded-md text-black bg-sky-500 hover:bg-sky-400 font-semibold"
+                  className="px-6 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-semibold transition-all"
                 >
-                  {`${run}`}
+                  {run}
                 </button>
-                <button className="px-5 py-2 rounded-md text-black bg-purple-500 hover:bg-purple-400 font-semibold">
+                <button className="px-6 py-2 rounded-lg bg-purple-500 hover:bg-purple-400 text-white font-semibold transition-all">
                   Share
                 </button>
               </div>
@@ -235,10 +278,11 @@ const Page = () => {
               <div className="flex gap-6">
                 {/* Image Section */}
                 <div className="flex-shrink-0">
+                  
                   <img
                     src={responseData.imageUrl}
                     alt={responseData.title}
-                    className="w-56 h-56 object-contain border-4 border-gray-700 rounded-lg shadow-lg hover:scale-105 transition-transform"
+                    className="w-56 h-56 object-contain border-4 border-gray-700 rounded-lg shadow-lg hover:scale-[1.01] transition-transform"
                   />
                 </div>
 
