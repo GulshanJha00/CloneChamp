@@ -19,6 +19,7 @@ const getSolution = async (req, res) => {
     schema.html_sol = htmlCode
     schema.css_sol = cssCode
     await schema.save();
+    console.log("Rreached before chromium")
 
 
 
@@ -28,6 +29,8 @@ const getSolution = async (req, res) => {
 
     // Taking screenshot
     const screenshotBuffer = await page.screenshot();
+    console.log("Rreached after chromium screenshot taken")
+
 
     // Fetching and resizing target image
     const targetImageResponse = await fetch(target);
@@ -45,6 +48,8 @@ const getSolution = async (req, res) => {
     // Read PNGs
     const userPng = PNG.sync.read(screenshotBuffer);
     const targetPng = PNG.sync.read(resizedTargetBuffer);
+    console.log("Rreached after chromium buffer created")
+
 
     const width = userPng.width;
     const height = userPng.height;
@@ -63,6 +68,8 @@ const getSolution = async (req, res) => {
       height,
       pixelmatchOptions
     );
+    console.log("Rreached after chromium macthed done")
+
 
 
     const totalPixels = width * height;
