@@ -88,6 +88,7 @@ const Page = () => {
       toast.error("No code written");
     }
     try {
+      console.log("Sending to backend")
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/get-solution`,
         {
