@@ -24,7 +24,7 @@ const page = () => {
     const questions = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/api/get-question"
+          `${process.env.NEXT_PUBLIC_API_URL}/api/get-question`
         );
         setQuestions(response.data);
       } catch (error) {

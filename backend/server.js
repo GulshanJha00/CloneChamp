@@ -7,7 +7,7 @@ app.use(express.json())
 
 app.use(helmet())
 app.use(cors({
-    origin: "http://localhost:3000"
+    origin: ["https://clonechamp.vercel.app", "http://localhost:3000"]
 }))
 app.use(router)
 app.listen(3001,()=>{

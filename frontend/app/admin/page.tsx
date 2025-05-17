@@ -40,7 +40,7 @@ const page = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:3001/api/get-question"
+        `${process.env.NEXT_PUBLIC_API_URL}/api/get-question`
       );
       console.log(response.data);
       setQuestions(response.data);
@@ -61,7 +61,7 @@ const page = () => {
   const handleDelete = async (qNo: number) => {
     setDeleted(true);
     try {
-      await axios.delete(`http://localhost:3001/api/delete-question/${qNo}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/delete-question/${qNo}`);
       await FetchQuestion();
       router.push("/admin");
       setDeleted(false);

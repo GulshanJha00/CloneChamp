@@ -56,7 +56,7 @@ const page = () => {
 
       const imageUrl = data.secure_url;
 
-      await axios.post("http://localhost:3001/api/upload-question", {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/upload-question`, {
         qNo,
         title,
         difficulty,

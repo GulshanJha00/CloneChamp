@@ -48,7 +48,7 @@ const Page = () => {
   const title = decodeURIComponent(id as string);
 
   const getImage = async () => {
-    const response = await axios.post(`http://localhost:3001/api/get-target`, {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/get-target`, {
       title,
     });
     if (response.data && response.data.length > 0) {
@@ -89,7 +89,7 @@ const Page = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/get-solution",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/get-solution`,
         {
           title,
           finalCode,
