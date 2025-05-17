@@ -56,7 +56,7 @@ const page = () => {
 
       const imageUrl = data.secure_url;
 
-      await axios.post("http://localhost:3001/api/upload-Book", {
+      await axios.post("http://localhost:3001/api/upload-question", {
         qNo,
         title,
         difficulty,
@@ -66,7 +66,7 @@ const page = () => {
       });
       setUploading(false);
 
-      toast.success("Books Uploaded");
+      toast.success("Questions Uploaded");
 
       router.push("/admin");
     } catch (err) {
@@ -83,7 +83,7 @@ const page = () => {
         <div className="w-screen h-screen flex justify-center items-center ">
           <div className="bg-gray-900 mx-auto p-6 border-white border max-w-xl rounded-lg shadow-md">
             <h1 className="text-2xl text-center font-bold mb-4 text-white">
-              Upload Book
+              Upload Question
             </h1>
             <form onSubmit={handleSubmit} className="space-y-4 text-white">
               <div>
@@ -91,12 +91,12 @@ const page = () => {
                   htmlFor="qNo"
                   className="block mb-1 text-base font-semibold"
                 >
-                  Book Number
+                  Question Number
                 </label>
                 <input
                   type="number"
                   id="qNo"
-                  placeholder="Book Number"
+                  placeholder="Question Number"
                   className="w-full p-2 border text-white rounded "
                   value={qNo}
                   onChange={(e) => setqNo(e.target.value)}
@@ -159,7 +159,7 @@ const page = () => {
                   htmlFor="colors"
                   className="block mb-1 text-base font-semibold"
                 >
-                    condition
+                    Colors
                 </label>
                 <input
                   type="text"

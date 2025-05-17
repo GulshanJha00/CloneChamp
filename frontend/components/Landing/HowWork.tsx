@@ -8,10 +8,9 @@ const HowWork = () => {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">How CloneChamp Works</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">How CampCode Works</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Practice frontend development by cloning designs with pixel-perfect accuracy. Get real-time feedback
-                  and improve your skills.
+                  Practice frontend development, Camp out. Clone real-world UIs Code with precision. Get real-time feedback and improve your skills.
                 </p>
               </div>
             </div>

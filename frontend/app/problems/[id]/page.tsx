@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
 import Footer from "@/components/Landing/footer";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 interface Question {
   qNo: number;
@@ -38,7 +38,8 @@ const Page = () => {
 }`
   );
   const [responseData, setResponseData] = useState<Question>(defaultQuestion);
-  const [showTarget, setShowTarget] = useState(true); 
+  const [showTarget, setShowTarget] = useState(false);
+  const [run, setRun] = useState("Run")
 
   const params = useParams();
   const { id } = params;
@@ -74,19 +75,56 @@ const Page = () => {
     `);
   }, [htmlCode, cssCode]);
 
-  const handleRun = async () =>{
-    if(!finalCode || !responseData.imageUrl){
+  const handleRun = async () => {
+    setRun("Running..")
+    if (!finalCode || !responseData.imageUrl) {
       toast.error("No code written");
     }
     try {
-      const response = await axios.post("http://localhost:3001/api/get-solution",{
-        finalCode,
-        target: responseData.imageUrl
-      })
-    } catch (error) {
+      const response = await axios.post(
+        "http://localhost:3001/api/get-solution",
+        {
+          finalCode,
+          target: responseData.imageUrl,
+        }
+      );
+      if (response.data.percentageMatch > 95) {
+        toast.success(
+          <div className="w-full bg-black text-white shadow-sm text-sm font-medium">
+            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}%.  
+            <br />
+            <span className="text-green-400">Submission accepted. Omedeto!!</span>
+          </div>,
+          {
+            style: {
+              background: 'black',
+              border: '1px solid white',
+              color: 'white',
+            },
+          }
+        );
+      } else {
+        toast.error(
+          <div className="w-full bg-black text-white shadow-sm text-sm font-medium">
+            Match Score: {parseFloat(response.data.percentageMatch).toFixed(2)}%.  
+            <br />
+            <span className="text-red-400">Your solution is less than 95%. Please try again.</span>
+          </div>,
+          {
+            style: {
+              background: 'black',
+              border: '1px solid white',
+              color: 'white',
+            },
+          }
+        );
+      }
       
+    } catch (error) {}
+    finally{
+      setRun("Run")
     }
-  }
+  };
   return (
     <>
       <div className="flex h-screen w-full text-white bg-[#0e0e0e]">
@@ -109,7 +147,6 @@ const Page = () => {
                 scrollBeyondLastLine: true,
                 wordWrap: "on",
               }}
-            
               className="w-full h-full"
             />
           </div>
@@ -142,11 +179,8 @@ const Page = () => {
               <span className="text-base font-semibold text-white">
                 Output Window
               </span>
-              <span onClick={handleRun} className="text-base cursor-pointer bg-sky-300 text-black p-2 rounded-lg  font-semibold ">
-                Run
-              </span>
             </header>
-          
+
             <div className="h-full w-full flex justify-center items-center">
               <div className="h-80 w-80 bg-gray-600 m-4 rounded-lg border border-gray-700 overflow-hidden shadow-xl relative">
                 {showTarget && responseData.imageUrl ? (
@@ -165,18 +199,32 @@ const Page = () => {
                   />
                 )}
               </div>
+              <div className="p-2  h-full z-10 text-center flex justify-center flex-col gap-5">
+                <button
+                  onClick={() => setShowTarget(false)}
+                  className={showTarget? "px-5 py-2 rounded-md text-black bg-yellow-400 hover:bg-yellow-300 font-semibold" :  "px-5 py-2 rounded-md text-black bg-yellow-500 font-semibold"}
+                >
+                  Live Preview
+                </button>
+                <button
+                  onClick={() => setShowTarget(true)}
+                  className={showTarget?"px-5 py-2 rounded-md text-black bg-yellow-600 font-semibold" : "px-5 py-2 rounded-md text-black bg-yellow-400 hover:bg-yellow-300 font-semibold" }
+                >
+                  Question
+                </button>
+                <button
+                  onClick={handleRun}
+                  className="px-5 py-2 rounded-md text-black bg-sky-500 hover:bg-sky-400 font-semibold"
+                >
+                  {`${run}`}
+                </button>
+                <button className="px-5 py-2 rounded-md text-black bg-purple-500 hover:bg-purple-400 font-semibold">
+                  Share
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="p-2 z-10 text-center">
-            <button
-              onClick={() => setShowTarget((prev) => !prev)}
-              className="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-all"
-            >
-              {showTarget ? "Live Preview" : "Compare"}
-            </button>
-          </div>
-          
           <div className="h-1/2 w-full bg-gray-900 shadow-lg">
             <header className="p-1 bg-gray-900 ">
               <span className="text-lg font-semibold text-yellow-400">
@@ -244,8 +292,11 @@ const Page = () => {
               )}
             </div>
           </div>
+
+          <ToastContainer />
         </div>
       </div>
+
       <Footer />
     </>
   );

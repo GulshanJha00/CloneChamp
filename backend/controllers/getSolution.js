@@ -1,6 +1,5 @@
 const playwright = require("playwright");
 const { PNG } = require("pngjs");
-const fs = require("fs");
 const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require('sharp');
 
@@ -14,14 +13,12 @@ const getSolution = async (req, res) => {
         .json({ error: "Missing finalCode or targetImageUrl" });
     }
 
-    // Setting headless browser
-    browser = await playwright.chromium.launch({ headless: true });
-    const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } });
+    browser = await playwright.chromium.launch({ headless: true }); //headless browser
+    const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } }); //
     await page.setContent(finalCode);
 
     // Taking screenshot
     const screenshotBuffer = await page.screenshot();
-    console.log("Screenshot buffer size:", screenshotBuffer.length); // Log size
 
     // Fetching and resizing target image
     const targetImageResponse = await fetch(target);
@@ -34,7 +31,6 @@ const getSolution = async (req, res) => {
     const resizedTargetBuffer = await sharp(Buffer.from(targetImageBuffer))
       .resize(1024, 1024)
       .toBuffer();
-    console.log("Resized target buffer size:", resizedTargetBuffer.length); // Log size
 
     // Read PNGs
     const userPng = PNG.sync.read(screenshotBuffer);
