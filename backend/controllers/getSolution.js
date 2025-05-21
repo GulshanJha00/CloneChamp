@@ -3,90 +3,92 @@ const { PNG } = require("pngjs");
 const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require('sharp');
 const QuestionSchema = require("../models/question");
+const User = require('../models/User');
 
 const getSolution = async (req, res) => {
   let browser;
   try {
-    const {title, finalCode,target,htmlCode,cssCode } = req.body;
-    if (!finalCode || !target) {
-      return res
-        .status(400)
-        .json({ error: "Missing finalCode or targetImageUrl" });
+    const { uid, title, finalCode, target, htmlCode, cssCode } = req.body;
+
+    if (!finalCode || !target || !uid || !title) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
-    console.log(title)
-    const schema = await QuestionSchema.findOne({title : title})
-    
-    schema.html_sol = htmlCode
-    schema.css_sol = cssCode
-    await schema.save();
-    console.log("Rreached before chromium")
 
+    const user = await User.findOne({ uid });
+    if (!user) return res.status(404).json({ error: "User not found" });
 
+    const question = await QuestionSchema.findOne({ title });
+    if (!question) return res.status(404).json({ error: "Question not found" });
 
-    browser = await playwright.chromium.launch({ headless: true }); //headless browser
-    const page = await browser.newPage({ viewport: { width: 340, height: 340 } }); //
+    // Launch browser and take screenshot of user's code
+    browser = await playwright.chromium.launch({ headless: true });
+    const page = await browser.newPage({ viewport: { width: 340, height: 340 } });
     await page.setContent(finalCode);
-
-    // Taking screenshot
     const screenshotBuffer = await page.screenshot();
-    console.log("Rreached after chromium screenshot taken")
 
-
-    // Fetching and resizing target image
+    // Fetch and resize target image
     const targetImageResponse = await fetch(target);
     if (!targetImageResponse.ok) {
-      throw new Error(
-        `Failed to download target image: ${targetImageResponse.status}`
-      );
+      throw new Error(`Failed to download target image: ${targetImageResponse.status}`);
     }
     const targetImageBuffer = await targetImageResponse.arrayBuffer();
     const resizedTargetBuffer = await sharp(Buffer.from(targetImageBuffer))
-    .resize(340, 340)
-    .png()
-    .toBuffer();
+      .resize(340, 340)
+      .png()
+      .toBuffer();
 
-    // Read PNGs
+    // Compare screenshots
     const userPng = PNG.sync.read(screenshotBuffer);
     const targetPng = PNG.sync.read(resizedTargetBuffer);
-    console.log("Rreached after chromium buffer created")
-
-
     const width = userPng.width;
     const height = userPng.height;
     const diff = new PNG({ width, height });
 
-    const pixelmatchOptions = {
-      threshold: 0.1,
-      alpha: 1.0,
-      includeAA: true 
-    };
     const numDiffPixels = pixelmatch(
       userPng.data,
       targetPng.data,
       diff.data,
       width,
       height,
-      pixelmatchOptions
+      { threshold: 0.1, alpha: 1.0, includeAA: true }
     );
-    console.log("Rreached after chromium macthed done")
-
-
 
     const totalPixels = width * height;
     const percentageMatch = ((totalPixels - numDiffPixels) / totalPixels) * 100;
-    if(percentageMatch >= 85){
-      schema.solved = true;
-      await schema.save()
+
+    // 🔁 Always save code
+    const existingIndex = user.solvedQuestions.findIndex(
+      (entry) => entry.question.toString() === question._id.toString()
+    );
+
+    if (existingIndex !== -1) {
+      // Update existing entry
+      user.solvedQuestions[existingIndex].html_sol = htmlCode;
+      user.solvedQuestions[existingIndex].css_sol = cssCode;
+      if (percentageMatch >= 85) {
+        user.solvedQuestions[existingIndex].solved = true;
+      }
+    } else {
+      // Push new entry with solved = true only if match >= 85
+      user.solvedQuestions.push({
+        question: question._id,
+        html_sol: htmlCode,
+        css_sol: cssCode,
+        solved: percentageMatch >= 85
+      });
     }
+
+    await user.save();
 
     res.status(200).json({ percentageMatch });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to fetch questions." });
+    res.status(500).json({ error: "Failed to process solution." });
   } finally {
     if (browser) {
       await browser.close();
     }
   }
 };
+
 module.exports = getSolution;

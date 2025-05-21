@@ -5,6 +5,7 @@ import { Editor } from "@monaco-editor/react";
 import axios from "axios";
 import Footer from "@/components/Landing/footer";
 import { toast, ToastContainer } from "react-toastify";
+import { getAuth } from "firebase/auth"; // make sure Firebase is configured
 
 interface Question {
   qNo: number;
@@ -41,6 +42,10 @@ const Page = () => {
   const [responseData, setResponseData] = useState<Question>(defaultQuestion);
   const [showTarget, setShowTarget] = useState(false);
   const [run, setRun] = useState("Run");
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const uid = user?.uid;
 
 
   const params = useParams();
@@ -90,6 +95,7 @@ const Page = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/get-solution`,
         {
+          uid,
           title,
           finalCode,
           target: responseData.imageUrl,
@@ -154,11 +160,12 @@ const Page = () => {
           </p>
         </div>
       </div>
-      <div className="lg:flex h-screen w-full text-white bg-[#0e0e0e]">
+
+      <div className="lg:flex min-h-screen w-full text-white bg-[#0e0e0e]">
         {/* Left Panel */}
         <div className="w-1/2 h-full flex flex-col border-r border-gray-800">
           {/* HTML Editor */}
-          <div className="h-1/2 ">
+          <div className="h-[50vh] ">
             <header className="p-1 bg-gray-900 border-b border-gray-700">
               <span className="text-sm font-semibold">HTML</span>
             </header>
@@ -179,7 +186,7 @@ const Page = () => {
           </div>
 
           {/* CSS Editor */}
-          <div className="h-[calc(50%-30px)] z-20">
+          <div className="h-[calc(50vh-30px)] z-20">
             <header className="p-1 bg-gray-800 border-b border-gray-700 text-white text-sm font-semibold">
               CSS
             </header>
@@ -208,8 +215,8 @@ const Page = () => {
               </span>
             </header>
 
-            <div className="flex flex-col md:flex-row justify-center items-center gap-6 p-4">
-              <div className="w-[340px] h-[340px] bg-gray-700 rounded-xl border border-gray-600 shadow-lg overflow-hidden relative"
+            <div className="flex flex-col md:flex-row h-max  justify-center items-center gap-6 p-4">
+              <div className="w-[340px] h-[340px] bg-gray-700 rounded-xl border border-gray-600 shadow-lg overflow-hidden"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               >
@@ -267,7 +274,7 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="h-1/2 w-full bg-gray-900 shadow-lg">
+          <div className="w-full h-1/2 bg-gray-900 shadow-lg">
             <header className="p-1 bg-gray-900 ">
               <span className="text-lg font-semibold text-yellow-400">
                 Recreate this target

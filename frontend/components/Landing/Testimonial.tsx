@@ -30,9 +30,9 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-16 bg-muted">
+    <section className="py-16 bg-gray-800">
       <div className="max-w-5xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-10 text-primary">What People Are Saying</h2>
+        <h2 className="text-3xl font-bold mb-10">What People Are Saying</h2>
         <Carousel className="relative">
           <CarouselContent className="flex gap-6 overflow-hidden">
             {testimonials.map((t, idx) => (
