@@ -18,8 +18,8 @@ export default function MainNav() {
   };
 
   return (
-    <div className="px-16 border-b border-b-gray-600 z-50 flex h-16 items-center sticky top-0 left-0 bg-[hsl(var(--background))]/70 justify-between w-screen gap-6 md:gap-10">
-      <nav className="hidden items-center md:flex gap-6">
+    <div className="md:px-16 px-2 border-b border-b-gray-600 z-50 flex h-16 items-center sticky top-0 left-0 bg-[hsl(var(--background))]/70 justify-between w-screen gap-6 md:gap-10">
+      <nav className=" items-center md:flex gap-6">
         <Link href="/" className="flex items-center gap-2">
           <Code className="h-6 w-6" />
           <span className="font-bold inline-block">CloneChamp</span>
