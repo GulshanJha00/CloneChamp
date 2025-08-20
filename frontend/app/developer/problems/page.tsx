@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ProtectedRoute from "../protectedRoute";
+import ProtectedRoute from "../../protectedRoute";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
-import Loading from "../loading";
+import Loading from "../../loading";
 
 interface Question {
   qNo: number;
@@ -171,7 +171,7 @@ const Page = () => {
           {filteredSearch.map((val, id) => (
             <Link
               key={id}
-              href={`/problems/${val.title}`}
+              href={`/developer/problems/${val.title}`}
               className="relative  hover:scale-[1.01] flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
             >
              

@@ -152,7 +152,7 @@ const Page = () => {
             %.
             <br />
             <span className="text-red-400">
-              Your solution is less than 95%. Please try again.
+              Your solution is less than 85%. Please try again.
             </span>
           </div>,
           {

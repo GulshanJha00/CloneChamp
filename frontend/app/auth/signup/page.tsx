@@ -3,55 +3,55 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   getAuth,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
-import { Button } from "@/components/ui/button";
 import app from "@/lib/firebaseConfig";
+import { Button } from "@/components/ui/button";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const Login = () => {
+const SignUp = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-
   const auth = getAuth(app);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/problems");
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/developer/problems");
     } catch (error: any) {
       setError(error.message);
     }
   };
 
   const handleProviderLogin = async (provider: "google" | "github") => {
-    const authProvider =
+    const selectedProvider =
       provider === "google"
         ? new GoogleAuthProvider()
         : new GithubAuthProvider();
-
     try {
-      await signInWithPopup(auth, authProvider);
-      router.push("/problems");
-    } catch (error: any) {
-      setError(error.message);
+      await signInWithPopup(auth, selectedProvider);
+      router.push("/developer/problems");
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center  px-4">
-        <div className="w-full border-gray-300  border max-w-md rounded-xl shadow-lg p-8">
-          <h1 className="text-2xl font-semibold mb-6 text-center">Login</h1>
 
-          <form onSubmit={handleLogin} className="space-y-4 ">
+      <div className="min-h-screen  flex items-center justify-center  px-4">
+        <div className="w-full max-w-md rounded-xl shadow-xl p-8 border border-[hsl(214.3,31.8%,91.4%)]">
+          <h1 className="text-2xl font-bold text-center mb-6">
+            Create your Account
+          </h1>
+
+          <form onSubmit={handleSignUp} className="space-y-5">
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-1">
                 Email
@@ -66,6 +66,7 @@ const Login = () => {
                 placeholder="you@example.com"
               />
             </div>
+
             <div>
               <label
                 htmlFor="password"
@@ -83,35 +84,43 @@ const Login = () => {
                 placeholder="••••••••"
               />
             </div>
-            {error && <p className="text-red-600 text-sm">{error}</p>}
+
+            {error && (
+              <p className="text-sm font-medium text-[hsl(0,84.2%,60.2%)]">
+                {error}
+              </p>
+            )}
+
             <Button type="submit" className="w-full text-base font-semibold text-white">
-              Login
+              Sign Up
             </Button>
           </form>
 
-          <div className="mt-4 space-y-2">
+          <div className="mt-6 space-y-3">
             <Button
-              variant="outline"
-              className="w-full bg-white text-black hover:text-white hover:border-white hover:border hover:bg-gray-900"
               onClick={() => handleProviderLogin("google")}
+              className="w-full bg-white text-black hover:text-white hover:border-white hover:border hover:bg-gray-900"
             >
               <i className="fab fa-google mr-2"></i>
               Continue with Google
             </Button>
+
             <Button
-              variant="outline"
-              className="w-full bg-white text-black hover:text-white hover:border-white hover:border hover:bg-gray-900"
               onClick={() => handleProviderLogin("github")}
+              className="w-full bg-white text-black hover:text-white hover:border-white hover:border hover:bg-gray-900"
             >
               <i className="fab fa-github mr-2"></i>
               Continue with GitHub
             </Button>
           </div>
 
-          <p className="mt-4 text-center text-sm text-gray-400">
-            Don't have an account?{" "}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Sign Up
+          <p className="mt-6 text-center text-sm text-gray-400">
+            Already have an account?{" "}
+            <a
+              href="/auth/login"
+              className="text-blue-600 hover:underline font-medium"
+            >
+              Log in
             </a>
           </p>
         </div>
@@ -120,4 +129,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

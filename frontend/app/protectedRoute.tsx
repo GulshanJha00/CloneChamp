@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
-        router.push("/login"); 
+        router.push("/auth/login"); 
       }
       setLoading(false);
     });

@@ -16,7 +16,7 @@ const JoinCommunity = () => {
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Button asChild size="lg">
-                  <Link href="/signup">
+                  <Link href="/auth/signup">
                     Join Now <Users className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

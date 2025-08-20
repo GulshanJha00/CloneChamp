@@ -20,12 +20,12 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg">
-                    <Link className='text-white' href="/problems">
+                    <Link className='text-white' href="/developer/problems">
                       Start Challenges <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button asChild variant="outline" size="lg">
-                    <Link href="/how-it-works">How It Works</Link>
+                    <Link href="/main/how-it-works">How It Works</Link>
                   </Button>
                 </div>
               </div>

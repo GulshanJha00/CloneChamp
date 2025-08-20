@@ -25,13 +25,13 @@ export default function MainNav() {
           <span className="font-bold inline-block">CloneChamp</span>
         </Link>
         <div className="hidden md:flex gap-6">
-          <Link href="/problems" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/developer/problems" className="text-sm font-medium transition-colors hover:text-primary">
             Problems
           </Link>
           <Link href="/designers" className="text-sm font-medium transition-colors hover:text-primary">
             Designer's Section
           </Link>
-          <Link href="/leaderboard" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/main/leaderboard" className="text-sm font-medium transition-colors hover:text-primary">
             Leaderboard
           </Link>
           
@@ -44,12 +44,12 @@ export default function MainNav() {
       ) : (
         <div className="ml-auto flex space-x-4">
           <Button asChild variant="ghost" size="sm">
-            <Link className="hover:bg-blue-500 text-blue-500" href="/login">
+            <Link className="hover:bg-blue-500 text-blue-500" href="/auth/login">
               Login
             </Link>
           </Button>
           <Button asChild size="sm">
-            <Link className="text-white hover:bg-blue-700" href="/signup">
+            <Link className="text-white hover:bg-blue-700" href="/auth/signup">
               Sign Up
             </Link>
           </Button>
