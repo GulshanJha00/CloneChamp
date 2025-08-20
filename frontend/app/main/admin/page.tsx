@@ -2,9 +2,9 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Loading from "../loading";
+import Loading from "@/app/loading";
 import { useRouter } from "next/navigation";
-import ProtectedRoute from "../protectedRoute";
+import ProtectedRoute from "@/app/protectedRoute";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
 
@@ -30,7 +30,7 @@ const page = () => {
         if (admin === process.env.NEXT_PUBLIC_ADMIN) {
           
         } else {
-          router.push("/problems");
+          router.push("/developer/problems");
         }
       }
     });

@@ -27,6 +27,9 @@ const MainPage = () => {
                   <Button asChild variant="outline" size="lg">
                     <Link href="/main/how-it-works">How It Works</Link>
                   </Button>
+                  <Button asChild variant="outline" size="lg">
+                    <Link href="/main">Main</Link>
+                  </Button>
                 </div>
               </div>
               <div className="flex w-screen md:w-full items-center justify-center">
