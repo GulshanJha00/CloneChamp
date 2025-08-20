@@ -29,15 +29,15 @@ const MainPage = () => {
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                <div className="relative h-[350px] w-full overflow-hidden rounded-xl border bg-gradient-to-b from-background/10 to-background/50 p-4 shadow-xl">
+              <div className="flex w-screen md:w-full items-center justify-center">
+                <div className="relative h-[350px] w-full overflow-hidden rounded-xl border bg-gradient-to-b from-background/10 to-background/50 md:p-4 shadow-xl">
                   <div className="absolute  inset-0 bg-grid-pattern opacity-10"></div>
                   <div className="relative z-10 flex h-full flex-col rounded-lg border bg-background p-4 shadow-lg">
                     <div className="mb-4 flex items-center gap-2 border-b pb-2">
                       <div className="h-3 w-3 rounded-full bg-red-500"></div>
                       <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
                       <div className="h-3 w-3 rounded-full bg-green-500"></div>
-                      <div className="ml-2 text-xs font-medium">Challenge Editor</div>
+                      <div className="ml-2 text-xs font-medium">CloneChamp</div>
                     </div>
                     <div className="flex flex-1 gap-2">
                       <div className="w-1/2 rounded-md bg-muted p-2">
@@ -52,13 +52,13 @@ const MainPage = () => {
                         <div className="text-blue-500">{"<div"}</div>
                         <div className="pl-4 text-green-500">{'className="card">'}</div>
                         <div className="pl-6 text-blue-500">{"<h2>"}</div>
-                        <div className="pl-8">Product Title</div>
+                        <div className="pl-8">It's Hero Time</div>
                         <div className="pl-6 text-blue-500">{"</h2>"}</div>
                         <div className="pl-6 text-blue-500">{"<p>"}</div>
-                        <div className="pl-8">Description goes here...</div>
+                        <div className="pl-8">An iconic close-up of the Omnitrix from Ben 10. Lock in — it’s hero time!</div>
                         <div className="pl-6 text-blue-500">{"</p>"}</div>
                         <div className="pl-6 text-blue-500">{"<button>"}</div>
-                        <div className="pl-8">Add to Cart</div>
+                        <div className="pl-8">Submit</div>
                         <div className="pl-6 text-blue-500">{"</button>"}</div>
                         <div className="pl-4 text-blue-500">{"</div>"}</div>
                       </div>

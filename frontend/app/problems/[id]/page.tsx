@@ -7,6 +7,7 @@ import Footer from "@/components/Landing/footer";
 import { toast, ToastContainer } from "react-toastify";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
 import Sponser from "@/components/sponser/Sponser"
+import ProtectedRoute from "@/app/protectedRoute";
 
 interface Question {
   _id: string;
@@ -169,7 +170,8 @@ const Page = () => {
     }
   };
   return (
-    <>
+        <ProtectedRoute>
+
       <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
         <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
           <h2 className="text-xl font-bold mb-2">
@@ -371,7 +373,7 @@ const Page = () => {
       </div>
 
       <Footer />
-    </>
+    </ProtectedRoute>
   );
 };
 
