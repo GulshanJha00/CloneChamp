@@ -17,7 +17,7 @@ export default function Home() {
         <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
           <h2 className="text-xl font-bold mb-2">Desktop Experience Required</h2>
           <p className="text-sm text-gray-300">
-          CampCode is optimized for larger screens to provide the best experience. Please access this platform from a desktop or laptop device.
+          CloneChamp is optimized for larger screens to provide the best experience. Please access this platform from a desktop or laptop device.
 
           </p>
         </div>

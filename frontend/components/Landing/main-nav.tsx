@@ -22,7 +22,7 @@ export default function MainNav() {
       <nav className="hidden items-center md:flex gap-6">
         <Link href="/" className="flex items-center gap-2">
           <Code className="h-6 w-6" />
-          <span className="font-bold inline-block">CampCode</span>
+          <span className="font-bold inline-block">CloneChamp</span>
         </Link>
         <div className="hidden md:flex gap-6">
           <Link href="/problems" className="text-sm font-medium transition-colors hover:text-primary">

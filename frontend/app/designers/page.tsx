@@ -9,7 +9,7 @@ const page = () => {
             Desktop Experience Required
           </h2>
           <p className="text-sm text-gray-300">
-            CampCode is optimized for larger screens to provide the best
+            CloneChamp is optimized for larger screens to provide the best
             experience. Please access this platform from a desktop or laptop
             device.
           </p>

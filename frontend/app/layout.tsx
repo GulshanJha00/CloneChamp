@@ -8,7 +8,7 @@ import { AuthProvider } from "./AuthProvider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CampCode - Frontend Challenge Platform",
+  title: "CloneChamp - Frontend Challenge Platform",
   description: "Master frontend development by cloning designs with pixel-perfect accuracy"
 }
 

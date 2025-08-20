@@ -11,7 +11,7 @@ const MainPage = () => {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Master <span className='text-blue-400'>Frontend</span>  Development with CampCode
+                    Master <span className='text-blue-400'>Frontend</span>  Development with CloneChamp
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     Clone designs with pixel-perfect accuracy. Practice, compete, and improve your frontend skills with

@@ -12,7 +12,7 @@ const JoinCommunity = () => {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Join Our Community</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Connect with other developers, share your solutions, and learn from each other.
-                </p>
+                </p> 
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Button asChild size="lg">
