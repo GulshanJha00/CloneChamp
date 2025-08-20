@@ -1,3 +1,4 @@
+import ComingSoon from '@/components/ComingSoon'
 import React from 'react'
 
 const page = () => {
@@ -15,6 +16,8 @@ const page = () => {
           </p>
         </div>
       </div>
+
+      <div><ComingSoon/></div>
 
       
     </>

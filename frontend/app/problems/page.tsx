@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
+import Loading from "../loading";
 
 interface Question {
   qNo: number;
@@ -162,8 +163,11 @@ const Page = () => {
             Hard
           </button>
         </header>
+        {
+          filteredSearch.length < 0 ? <Loading/>
 
-        <main className="container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
+          :
+          <main className="container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
           {filteredSearch.map((val, id) => (
             <Link
               key={id}
@@ -209,6 +213,9 @@ const Page = () => {
             </Link>
           ))}
         </main>
+        }
+
+        
       </div>
     </ProtectedRoute>
   );
