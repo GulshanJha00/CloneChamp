@@ -78,8 +78,8 @@ const getSolution = async (req, res) => {
       });
     }
 
-    await user.save();
 
+    await user.save();
     res.status(200).json({ percentageMatch });
   } catch (err) {
     console.error(err);
@@ -90,5 +90,4 @@ const getSolution = async (req, res) => {
     }
   }
 };
-
 module.exports = getSolution;

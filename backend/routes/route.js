@@ -6,6 +6,7 @@ const getTarget = require("../controllers/getTarget")
 const getSolution = require("../controllers/getSolution")
 const checkOrCreateUser = require("../controllers/checkOrCreateUser");
 const getUser = require("../controllers/getUser")
+const getCode = require("../controllers/getCode")
 const router = express.Router()
 
 //post routes
@@ -15,6 +16,7 @@ router.post("/api/get-target",getTarget)
 router.post("/api/get-solution",getSolution)
 router.post("/api/user/check-or-create", checkOrCreateUser);
 router.post("/api/get-user", getUser);
+router.post("/api/get-code", getCode);
 
 
 

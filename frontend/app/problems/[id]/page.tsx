@@ -6,8 +6,10 @@ import axios from "axios";
 import Footer from "@/components/Landing/footer";
 import { toast, ToastContainer } from "react-toastify";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
+import Sponser from "@/components/sponser/Sponser"
 
 interface Question {
+  _id: string;
   qNo: number;
   title: string;
   difficulty: string;
@@ -16,6 +18,7 @@ interface Question {
   imageUrl: string;
 }
 const defaultQuestion: Question = {
+  _id: "",
   qNo: 0,
   title: "",
   description: "",
@@ -25,13 +28,11 @@ const defaultQuestion: Question = {
 };
 
 const Page = () => {
-  const [isHovering, setIsHovering] = useState(false)
+  const [isHovering, setIsHovering] = useState(false);
   const [finalCode, setFinalCode] = useState("");
   const [htmlCode, setHtmlCode] = useState(
-    `<body>
-      <h1 class="font-bold underline">Your display will be shown here</h1>
-      <p>Recreate the target given below</p>
-</body>`
+    `<h1 class="font-bold underline">Your display will be shown here</h1>
+<p>Recreate the target given below</p>`
   );
   const [cssCode, setCssCode] = useState(
     `p {
@@ -47,27 +48,47 @@ const Page = () => {
   const user = auth.currentUser;
   const uid = user?.uid;
 
-
   const params = useParams();
   const { id } = params;
   const title = decodeURIComponent(id as string);
 
+  // Fetch the target image and question details based on the title
   const getImage = async () => {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/get-target`, {
-      title,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/get-target`,
+      {
+        title,
+      }
+    );
     if (response.data && response.data.length > 0) {
       setResponseData(response.data[0]);
-      if(response.data[0].html_sol !== "" || response.data[0].css_sol !== ""){
-        setHtmlCode( response.data[0].html_sol)
-        setCssCode(response.data[0].css_sol)
-      }
     }
   };
-
   useEffect(() => {
     getImage();
   }, []);
+
+  //get the code of the user
+  const getCode = async () => {
+    const qn_id = responseData._id;
+    console.log(qn_id)
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/get-code`,
+      {
+        uid,
+        qn_id ,
+      }
+    );
+    console.log(response.data)
+    setHtmlCode(response.data.html_sol)
+    setCssCode(response.data.css_sol)
+  };
+
+  useEffect(() => {
+    if (responseData._id) {
+      getCode();
+    }
+  }, [responseData._id]);
 
   useEffect(() => {
     setFinalCode(`
@@ -81,7 +102,9 @@ const Page = () => {
           ${cssCode}
         </style>
       </head>
+      <body>
       ${htmlCode}
+      </body>
     </html>
     `);
   }, [htmlCode, cssCode]);
@@ -100,7 +123,7 @@ const Page = () => {
           finalCode,
           target: responseData.imageUrl,
           htmlCode,
-          cssCode
+          cssCode,
         }
       );
       if (response.data.percentageMatch >= 85) {
@@ -121,7 +144,6 @@ const Page = () => {
             },
           }
         );
-      
       } else {
         toast.error(
           <div className="w-full bg-black text-white shadow-sm text-sm font-medium">
@@ -148,7 +170,7 @@ const Page = () => {
   };
   return (
     <>
-    <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
+      <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
         <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
           <h2 className="text-xl font-bold mb-2">
             Desktop Experience Required
@@ -161,11 +183,11 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="lg:flex min-h-screen w-full text-white bg-[#0e0e0e]">
+      <div className="lg:flex h-screen w-full text-white bg-gray-950">
         {/* Left Panel */}
-        <div className="w-1/2 h-full flex flex-col border-r border-gray-800">
+        <div className="w-2/5 h-screen flex flex-col border-r border-gray-800">
           {/* HTML Editor */}
-          <div className="h-[50vh] ">
+          <div className="h-1/2 w-full">
             <header className="p-1 bg-gray-900 border-b border-gray-700">
               <span className="text-sm font-semibold">HTML</span>
             </header>
@@ -181,12 +203,11 @@ const Page = () => {
                 scrollBeyondLastLine: true,
                 wordWrap: "on",
               }}
-              className="w-full h-full"
             />
           </div>
 
           {/* CSS Editor */}
-          <div className="h-[calc(50vh-30px)] z-20">
+          <div className="h-[calc(50%-30px)] w-full z-20">
             <header className="p-1 bg-gray-800 border-b border-gray-700 text-white text-sm font-semibold">
               CSS
             </header>
@@ -202,98 +223,100 @@ const Page = () => {
                 scrollBeyondLastLine: true,
                 wordWrap: "on",
               }}
-              className="w-full h-[calc(100%+3px)]"
             />
           </div>
         </div>
 
-        <div className="w-1/2 h-full flex flex-col border-r bg-gray-900 border-gray-800 overflow-y-auto">
-          <div className="h-1/2 w-full relative mb-4">
-            <header className="px-6 py-3 bg-gray-900 border-b border-gray-700 shadow-md flex justify-between items-center">
-              <span className="text-lg font-bold text-white">
-                Output Window
-              </span>
+        <div className="h-full w-3/5 flex  bg-gray-900  overflow-y-auto">
+          <div className="w-full border-r border-gray-700 relative mb-4">
+            <header className="p-1 bg-gray-900 border-b border-gray-700 text-white  font-semibold">
+              Output Window
             </header>
 
-            <div className="flex flex-col md:flex-row h-max  justify-center items-center gap-6 p-4">
-              <div className="w-[340px] h-[340px] bg-gray-700 rounded-xl border border-gray-600 shadow-lg overflow-hidden"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
+            <div className="flex flex-col h-max  justify-center items-center gap-6 p-4">
+              <div
+                className="w-[340px] h-[340px] bg-gray-700 rounded-xl border border-gray-600 shadow-lg overflow-hidden"
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
               >
-              
-              {(isHovering || showTarget) && responseData.imageUrl ? (
+                {(isHovering || showTarget) && responseData.imageUrl ? (
                   <img
                     src={responseData.imageUrl}
                     alt="Target"
                     className="w-full h-full object-contain"
                   />
                 ) : !responseData.imageUrl ? (
-                  <div className="text-white text-center p-4">No target image available</div>
+                  <div className="flex justify-center items-center w-full h-full text-gray-500 text-sm text-center italic">
+                    No target image available
+                  </div>
                 ) : (
                   <iframe
                     srcDoc={finalCode}
-                    title="Live Preview"
-                    sandbox="allow-scripts allow-same-origin"
-                    frameBorder="0"
+                    title="Output Preview"
                     className="w-full h-full"
+                    sandbox="allow-scripts allow-same-origin"
                   />
                 )}
               </div>
 
-              <div className="flex flex-col gap-4 text-center">
-                <button title="View your live output preview"
-                  onClick={() => setShowTarget(false)}
-                  className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                    showTarget
-                      ? "bg-yellow-400 hover:bg-yellow-300 text-black"
-                      : "bg-yellow-600 text-black"
-                  }`}
-                >
-                  Live Preview
-                </button>
-                <button
-                  onClick={() => setShowTarget(true)}
-                  className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                    showTarget
-                      ? "bg-yellow-600 text-black"
-                      : "bg-yellow-400 hover:bg-yellow-300 text-black"
-                  }`}
-                >
-                  Question
-                </button>
-                <button
-                  onClick={handleRun}
-                  className="px-6 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-semibold transition-all"
-                >
-                  {run}
-                </button>
-                <button className="px-6 py-2 rounded-lg bg-purple-500 hover:bg-purple-400 text-white font-semibold transition-all">
-                  Share
-                </button>
+              <div className="flex justify-center items-center w-full flex-col gap-4 text-center  ">
+                <div className="flex gap-3">
+                  <button
+                    title="View your live output preview"
+                    onClick={() => setShowTarget(false)}
+                    className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                      showTarget
+                        ? "bg-yellow-400 hover:bg-yellow-300 text-black"
+                        : "bg-yellow-600 text-black"
+                    }`}
+                  >
+                    Live Preview
+                  </button>
+                  <button
+                    onClick={() => setShowTarget(true)}
+                    className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                      showTarget
+                        ? "bg-yellow-600 text-black"
+                        : "bg-yellow-400 hover:bg-yellow-300 text-black"
+                    }`}
+                  >
+                    Question
+                  </button>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleRun}
+                    className="px-6 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-semibold transition-all"
+                  >
+                    {run} Code
+                  </button>
+
+                  <button className="px-6 py-2 rounded-lg bg-purple-500 hover:bg-purple-400 text-white font-semibold transition-all">
+                    Share
+                  </button>
+                </div>
               </div>
             </div>
+              <Sponser/>
           </div>
 
-          <div className="w-full h-1/2 bg-gray-900 shadow-lg">
-            <header className="p-1 bg-gray-900 ">
-              <span className="text-lg font-semibold text-yellow-400">
-                Recreate this target
-              </span>
+          <div className="w-full h-full bg-gray-900 shadow-lg">
+            <header className="p-1 bg-gray-900 border-b border-gray-700 text-white  font-semibold">
+              Recreate This Target
             </header>
-            <div className="p-4 text-sm space-y-4">
-              <div className="flex gap-6">
-                {/* Image Section */}
-                <div className="flex-shrink-0">
-                  
+            <div className="p-5  text-sm space-y-4">
+              <div className="gap-6">
+                <div>
                   <img
                     src={responseData.imageUrl}
                     alt={responseData.title}
-                    className="w-56 h-56 object-contain border-4 border-gray-700 rounded-lg shadow-lg hover:scale-[1.01] transition-transform"
+                    className="w-full h-80 object-contain border-4 border-gray-700 rounded-lg shadow-lg hover:scale-[1.01]  transition-transform"
                   />
                 </div>
 
                 {/* Content Section */}
-                <div className="flex flex-col justify-between w-full">
+                <div className="flex pt-4 flex-col justify-between w-full">
                   <div>
                     <h2 className="text-2xl font-bold text-yellow-400">
                       {responseData.title}

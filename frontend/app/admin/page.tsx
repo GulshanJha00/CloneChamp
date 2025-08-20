@@ -90,13 +90,13 @@ const page = () => {
         <div>
           <header className="container flex justify-between items-center border-b border-b-gray-600 pb-4">
             <div className="flex flex-col pt-4">
-              <h1 className="text-3xl font-bold">Manage Existing Book</h1>
+              <h1 className="text-3xl font-bold">Manage Existing Questions</h1>
               <p className="text-gray-400">
-                Edit or Delete details for existing Book
+                Edit or Delete details for existing Questions
               </p>
             </div>
             <div className="rounded-lg border border-gray-600 px-4 py-2 hover:bg-gray-800 transition">
-              <Link href="/admin/form">+ Add New Book</Link>
+              <Link href="/admin/form">+ Add New Question</Link>
             </div>
           </header>
 
