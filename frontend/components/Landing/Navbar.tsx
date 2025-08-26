@@ -13,23 +13,21 @@ export default function Navbar() {
   const auth = getAuth();
   const user = auth.currentUser;
   const [name, setName] = useState("");
-  console.log(user?.displayName);
 
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
   useEffect(() => {
-    if (isLoggedIn) {
-      const fetchUser = async () => {
-        const response = await axios.post(
-          "http://localhost:3001/auth/get-user",
-          {
-            uid: user?.uid,
-          }
-        );
-        setName(response.data.name)
-      };
-      fetchUser();
+  const fetchUser = async () => {
+    if (isLoggedIn && user?.uid) {
+      const response = await axios.post("http://localhost:3001/auth/get-user", {
+        uid: user.uid,
+      });
+      setName(response.data.name);
     }
-  }, []);
+  };
+
+  fetchUser();
+}, [isLoggedIn, user?.uid]);
+
 
   const handleLogout = async () => {
     try {
