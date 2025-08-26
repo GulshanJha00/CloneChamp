@@ -3,12 +3,30 @@ import { Code } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuthStore } from "@/app/store/store";
 import { getAuth, signOut } from "firebase/auth";
+import { useEffect } from "react";
+import axios from "axios";
 
-export default function MainNav() {
+export default function Navbar() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
+  useEffect(() => {
+    console.log(user?.displayName)
+    console.log(user?.email)
+
+    if(isLoggedIn){
+    const fetchUser = async () =>{
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/get-user`)
+      
+    }
+  }
+    
+  }, [])
+  
 
   const handleLogout = async () => {
-    const auth = getAuth();
+    
     try {
       await signOut(auth);
       setIsLoggedIn(false);
@@ -38,9 +56,15 @@ export default function MainNav() {
         </div>
       </nav>
       {isLoggedIn ? (
+        <div className="flex justify-center items-center gap-5">
         <Button onClick={handleLogout} asChild variant="ghost" size="sm">
           <h1 className="bg-red-500 text-white cursor-pointer hover:bg-red-800">Logout</h1>
         </Button>
+        <div className="h-10 w-10 border border-gray-400 hover:border-white cursor-pointer bg-gray-600 rounded-full">
+
+        </div>
+        </div>
+        
       ) : (
         <div className="ml-auto flex space-x-4">
           <Button asChild variant="ghost" size="sm">
