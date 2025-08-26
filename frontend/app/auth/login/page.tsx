@@ -35,7 +35,6 @@ const Login = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/developer/problems");

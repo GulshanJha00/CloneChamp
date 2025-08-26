@@ -13,6 +13,7 @@ export default function Navbar() {
   const auth = getAuth();
   const user = auth.currentUser;
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("")
 
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function Navbar() {
         uid: user.uid,
       });
       setName(response.data.name);
+      setUsername(response.data.username)
     }
   };
 
@@ -74,7 +76,7 @@ export default function Navbar() {
             </h1>
           </Button>
           <div
-            onClick={() => router.push(`/profile/${user?.uid}`)}
+            onClick={() => router.push(`/profile/${username}`)}
             className="h-10 w-10 border border-gray-400 hover:border-white cursor-pointer bg-gray-700 flex justify-center items-center rounded-full"
           >
             <h1 className="h-max">{name[0]}</h1>
