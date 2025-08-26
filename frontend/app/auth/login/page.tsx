@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import app from "@/lib/firebaseConfig";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
 
 const Login = () => {
   const router = useRouter();
@@ -19,6 +20,18 @@ const Login = () => {
   const [error, setError] = useState<string | null>(null);
 
   const auth = getAuth(app);
+
+  const signInUser = async (uid: string, name: string, email: string) => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/add-user`,
+        { uid, name, email }
+      );
+      console.log(response.data.message);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +51,12 @@ const Login = () => {
         : new GithubAuthProvider();
 
     try {
-      await signInWithPopup(auth, authProvider);
+      const result = await signInWithPopup(auth, authProvider);
+      const newUser = result.user;
+      if (!newUser?.uid || !newUser.displayName || !newUser.email) {
+        return;
+      }
+      signInUser(newUser?.uid, newUser?.displayName, newUser?.email);
       router.push("/developer/problems");
     } catch (error: any) {
       setError(error.message);
@@ -84,7 +102,10 @@ const Login = () => {
               />
             </div>
             {error && <p className="text-red-600 text-sm">{error}</p>}
-            <Button type="submit" className="w-full text-base font-semibold text-white">
+            <Button
+              type="submit"
+              className="w-full text-base font-semibold text-white"
+            >
               Login
             </Button>
           </form>
