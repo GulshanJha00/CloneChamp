@@ -5,6 +5,7 @@ import { useAuthStore } from './store/store'; // Zustand store
 import Loading from './loading';
 import app from '@/lib/firebaseConfig';
 import MainNav from '@/components/Landing/main-nav';
+import Footer from '@/components/Landing/footer';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
@@ -27,5 +28,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return <>
   <MainNav/>
   {children}
+  <Footer/>
   </>;
 };

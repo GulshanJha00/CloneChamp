@@ -25,7 +25,6 @@ export default function Home() {
         <FAQ />
         <JoinCommunity />
       </main>
-      <Footer />
     </div>
     </>
   );
