@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ProtectedRoute from "../../protectedRoute";
-import { Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
@@ -163,59 +163,64 @@ const Page = () => {
             Hard
           </button>
         </header>
-        {
-          filteredSearch.length < 0 ? <Loading/>
-
-          :
+        {filteredSearch.length < 0 ? (
+          <div className="flex items-center h-full justify-center min-h-screen bg-gray-50">
+            <div className="text-center">
+              <Loader2 className="w-12 h-12 text-indigo-600 animate-spin mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-gray-800">
+                Please wait...
+              </h2>
+              <p className="text-gray-500">We are loading things for you</p>
+              <p className="text-gray-500">First load may take some time</p>
+            </div>
+          </div>
+        ) : (
           <main className="container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
-          {filteredSearch.map((val, id) => (
-            <Link
-              key={id}
-              href={`/developer/problems/${val.title}`}
-              className="relative  hover:scale-[1.01] flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
-            >
-             
-              <img
-                src={val.imageUrl}
-                alt="Challenge"
-                className="w-full h-52 object-contain bg-gray-900 border-b border-gray-700"
-              />
-              <div className="flex  flex-col h-full p-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-base font-semibold text-white">
-                    {val.qNo}. {val.title || "No title"}
-                  </h2>
-                  <span
-                    className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                      val.difficulty === "easy"
-                        ? "bg-green-600 text-white"
-                        : val.difficulty === "medium"
-                        ? "bg-yellow-500 text-black"
-                        : val.difficulty === "hard"
-                        ? "bg-red-600 text-white"
-                        : "hidden"
-                    }`}
-                  >
-                    {val.difficulty &&
-                      val.difficulty.charAt(0).toUpperCase() +
-                        val.difficulty.slice(1)}
-                  </span>
+            {filteredSearch.map((val, id) => (
+              <Link
+                key={id}
+                href={`/developer/problems/${val.title}`}
+                className="relative  hover:scale-[1.01] flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
+              >
+                <img
+                  src={val.imageUrl}
+                  alt="Challenge"
+                  className="w-full h-52 object-contain bg-gray-900 border-b border-gray-700"
+                />
+                <div className="flex  flex-col h-full p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <h2 className="text-base font-semibold text-white">
+                      {val.qNo}. {val.title || "No title"}
+                    </h2>
+                    <span
+                      className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                        val.difficulty === "easy"
+                          ? "bg-green-600 text-white"
+                          : val.difficulty === "medium"
+                          ? "bg-yellow-500 text-black"
+                          : val.difficulty === "hard"
+                          ? "bg-red-600 text-white"
+                          : "hidden"
+                      }`}
+                    >
+                      {val.difficulty &&
+                        val.difficulty.charAt(0).toUpperCase() +
+                          val.difficulty.slice(1)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-4 line-clamp-3">
+                    {val.description}
+                  </p>
+                  <div className="mt-auto pt-2">
+                    <button className="w-full py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+                      Start Challenge
+                    </button>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-300 mb-4 line-clamp-3">
-                  {val.description}
-                </p>
-                <div className="mt-auto pt-2">
-                  <button className="w-full py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
-                    Start Challenge
-                  </button>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </main>
-        }
-
-        
+              </Link>
+            ))}
+          </main>
+        )}
       </div>
     </ProtectedRoute>
   );

@@ -28,7 +28,6 @@ const page = () => {
       if (user) {
         let admin = user.uid;
         if (admin === process.env.NEXT_PUBLIC_ADMIN) {
-          
         } else {
           router.push("/problems");
         }
