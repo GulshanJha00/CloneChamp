@@ -1,13 +1,14 @@
 const express = require("express")
-const uploadQuestion = require("../controllers/uploadQuestion")
-const getQuestion = require("../controllers/getQuestion")
-const deleteQuestion = require("../controllers/deleteQuestion")
-const getTarget = require("../controllers/getTarget")
-const getSolution = require("../controllers/getSolution")
-const checkOrCreateUser = require("../controllers/checkOrCreateUser");
-const getUser = require("../controllers/getUser")
-const getCode = require("../controllers/getCode")
-const addUser = require("../controllers/addUser")
+const uploadQuestion = require("../controllers/questions/uploadQuestion")
+const getQuestion = require("../controllers/questions/getQuestion")
+const deleteQuestion = require("../controllers/questions/deleteQuestion")
+const getTarget = require("../controllers/questions/getTarget")
+const getSolution = require("../controllers/questions/getSolution")
+const checkOrCreateUser = require("../controllers/user/checkOrCreateUser");
+const getUser = require("../controllers/user/getUser")
+const getCode = require("../controllers/questions/getCode")
+const addUser = require("../controllers/user/addUser")
+const getUserById = require("../controllers/user/getUserById")
 const router = express.Router()
 
 //question routes
@@ -21,6 +22,7 @@ router.post("/api/get-code", getCode);
 //user route
 router.post("/auth/get-user", getUser);
 router.post("/auth/add-user",addUser);
+router.post("/auth/get-user-id",getUserById);
 
 
 //get routes

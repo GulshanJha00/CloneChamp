@@ -14,12 +14,11 @@ export default function Navbar() {
   const user = auth.currentUser;
   const [name, setName] = useState("");
   const [username, setUsername] = useState("")
-
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
   useEffect(() => {
   const fetchUser = async () => {
     if (isLoggedIn && user?.uid) {
-      const response = await axios.post("http://localhost:3001/auth/get-user", {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-user`, {
         uid: user.uid,
       });
       setName(response.data.name);

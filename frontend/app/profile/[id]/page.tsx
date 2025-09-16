@@ -1,7 +1,42 @@
 "use client";
-import React from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const Page = () => {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+interface User{
+    uid: string,
+    username:string,
+    name:string,
+    email:string,
+    bio: string,
+    skills: [{
+      contact:[{
+        phone: string | null,
+        email: string | null,
+      }]
+    }],
+    socials: [{
+      github: string | null,
+      linkedin: string | null,
+      portfolio: string | null,
+    }]
+}
+const Page = ({params}:PageProps) => {
+  const router = useRouter();
+  const { id } = React.use(params);
+  const [Users, setUsers] = useState<User[]|null>([])
+
+  console.log(id)
+  useEffect(()=>{
+    const fetchUser = async () =>{
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-user-id`,{username:id});
+      console.log(res.data)
+    }
+    fetchUser();
+  },[])
   const dummyUser = {
     name: "Gulshan Kumar",
     username: "cool-wolf-x91a2",
@@ -42,7 +77,7 @@ const Page = () => {
             </p>
 
             {/* Edit Profile Button */}
-            <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+            <button onClick={()=>router.push("/profile/edit")} className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
               Edit Profile
             </button>
           </div>

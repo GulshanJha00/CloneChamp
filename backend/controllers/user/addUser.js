@@ -1,5 +1,6 @@
-const User = require("../models/User");
+const User = require("../../models/User");
 const { nanoid } = require("nanoid");
+const UserProfile = require("../../models/UserProfile");
 
 const addUser = async (req, res) => {
   try {
@@ -12,7 +13,7 @@ const addUser = async (req, res) => {
       return res.status(200).json({ message: "User already exists." });
     }
 
-     const adjectives = ["happy", "cool", "brave", "silent"];
+    const adjectives = ["happy", "cool", "brave", "silent"];
     const animals = ["tiger", "panda", "lion", "wolf"];
 
     const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
@@ -27,9 +28,12 @@ const addUser = async (req, res) => {
       username,
       name,
       email,
-
+    });
+    await UserProfile.create({
+      user: UserSchema._id,
     });
     UserSchema.save();
+    UserProfile.save();
     return res.status(201).json({ message: "User Added Successfully." });
   } catch (error) {
     return res.status(400).json({ message: "Error while saving user" });

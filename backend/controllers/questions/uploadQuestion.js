@@ -1,4 +1,4 @@
-const QuestionSchema = require("../models/question");
+const QuestionSchema = require("../../models/question");
 
 const uploadQuestion = async (req, res) => {
   try {

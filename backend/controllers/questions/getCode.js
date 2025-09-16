@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const Ques = require('../models/question');
+const User = require("../../models/User");
+const Ques = require('../../models/question');
 
 const getCode = async (req, res) => {
   
