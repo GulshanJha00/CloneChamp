@@ -9,6 +9,7 @@ const getUser = require("../controllers/user/getUser")
 const getCode = require("../controllers/questions/getCode")
 const addUser = require("../controllers/user/addUser")
 const getUserById = require("../controllers/user/getUserById")
+const updateUser = require("../controllers/userProfile/updateUser")
 const router = express.Router()
 
 //question routes
@@ -30,6 +31,9 @@ router.post("/auth/get-user-id",getUserById);
 router.get("/api/get-question",getQuestion)
 router.delete("/api/delete-question/:id",deleteQuestion)
 
+
+//userProfile Route
+router.put("/user/:id",updateUser)
 
 
 module.exports =  router
