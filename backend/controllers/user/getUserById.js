@@ -1,4 +1,3 @@
-const UserSchema = require("../../models/User");
 const UserProfile = require("../../models/UserProfile");
 
 const getUserById = async (req, res) => {
@@ -7,11 +6,13 @@ const getUserById = async (req, res) => {
     if (!username) {
       return res.status(400).json({ error: "UID is required" });
     }
-    console.log(username)
-
-    const user = await UserProfile.findOne({ username }); 
-    if (!user) return res.status(404).json({ error: "User not found" });
-    res.json(user);
+   const userProfile = await UserProfile.findOne()
+      .populate({
+        path: "user", 
+        match: { username },
+      });
+    if (!userProfile) return res.status(404).json({ error: "User not found" });
+    res.json(userProfile);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
