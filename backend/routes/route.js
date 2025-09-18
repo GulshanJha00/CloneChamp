@@ -33,7 +33,7 @@ router.delete("/api/delete-question/:id",deleteQuestion)
 
 
 //userProfile Route
-router.put("/user/:id",updateUser)
+router.put("/user/:value",updateUser)
 
 
 module.exports =  router

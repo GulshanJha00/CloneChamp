@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import Loading from "@/app/loading";
 import { Check, X } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface User {
   uid: string;
@@ -40,25 +42,28 @@ const Page = () => {
           { username }
         );
 
-        const u = res.data.user;
+        const data = res.data;
+        const u = data.user;
+        console.log("data is :- ", data);
+        console.log("User data is :- ", u);
+
         setUser({
           uid: u.uid,
           username: u.username,
           name: u.name || "",
           email: u.email || "",
-          bio: u.bio || "",
+          bio: data.bio || "",
           avatar:
-            u.avatar ||
-            `https://ui-avatars.com/api/?name=${
-              u.name || "User"
-            }&background=1E293B&color=fff`,
-          skills: u.skills || [],
-          contact: u.contact || { phone: "", email: u.email },
-          socials: u.socials || { github: "", linkedin: "", portfolio: "" },
+            data.avatar ||
+            `https://ui-avatars.com/api/?name=${u.name || "User"}&background=1E293B&color=fff`,
+          skills: data.skills || [],
+          contact: data.contact || { phone: "", email: u.email },
+          socials: data.socials || { github: "", linkedin: "", portfolio: "" },
           solvedQuestions: u.solvedQuestions || [],
         });
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetching user:", error);
+        toast.error("Failed to fetch user data");
       }
     };
     fetchUser();
@@ -74,24 +79,37 @@ const Page = () => {
     setTempValue("");
   };
 
-  const saveField = () => {
-    if (!user || !editField) return;
-
-    const updatedUser = { ...user };
-    if (editField.includes(".")) {
-      const [parent, child] = editField.split(".");
-      (updatedUser as any)[parent][child] = tempValue;
-    } else {
-      (updatedUser as any)[editField] = tempValue;
-    }
-
-    setUser(updatedUser);
-    setEditField(null);
-    setTempValue("");
-    // TODO: send axios PATCH request to backend
-  };
-
   if (!user) return <Loading />;
+
+  const saveField = async (field: string, tempValue: string) => {
+    if (!field || !tempValue) return;
+
+    try {
+      console.log("Updating user field...");
+
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${field}`,
+        {
+          tempValue,
+          username: user.username,
+        }
+      );
+
+      if (response.status === 402) {
+        toast.error("User already exists. Please try something else");
+        return;
+      }
+
+      toast.success(`${field.charAt(0).toUpperCase() + field.slice(1)} updated successfully`);
+      setUser((prev) =>
+        prev ? { ...prev, [field]: tempValue } : prev
+      );
+      cancelEdit();
+    } catch (error: any) {
+      console.error("Error updating user:", error.response?.data || error.message);
+      toast.error(error.response?.data?.message || "Failed to update field");
+    }
+  };
 
   const displayValue = (val: string) =>
     val && val.trim() !== "" ? val : "No value written";
@@ -101,10 +119,8 @@ const Page = () => {
       <h1 className="text-4xl font-bold text-center mb-8">Edit Profile</h1>
 
       <div className="flex items-center gap-8 cursor-pointer p-6 bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-blue-500/70 transition-all duration-500 relative overflow-hidden">
-        {/* Gradient glow overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-blue-400/5 to-blue-600/10 rounded-3xl opacity-60 blur-2xl animate-pulse"></div>
 
-        {/* Avatar */}
         <div className="relative group">
           <div className="p-[4px] rounded-full bg-gradient-to-tr from-blue-400 via-blue-600 to-indigo-500 animate-spin-slow">
             <img
@@ -114,10 +130,8 @@ const Page = () => {
             />
           </div>
 
-          {/* Glow pulse */}
           <div className="absolute inset-0 rounded-full bg-blue-500 opacity-40 blur-2xl group-hover:opacity-70 transition-all duration-500"></div>
 
-          {/* Hover overlay */}
           <div className="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition duration-500">
             <button
               onClick={() => window.open(user.avatar, "_blank")}
@@ -139,7 +153,7 @@ const Page = () => {
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
                   const file = e.target.files[0];
-                  // TODO: handle upload logic here
+                  toast.info("Avatar selected. Upload logic pending");
                   console.log("Selected file:", file);
                 }
               }}
@@ -154,7 +168,7 @@ const Page = () => {
         </div>
       </div>
 
-      {["name", "bio","username"].map((field) => (
+      {["name", "bio", "username"].map((field) => (
         <div
           key={field}
           className="p-5 bg-gray-900 rounded-2xl shadow-lg hover:shadow-blue-500/30 transition-shadow duration-300"
@@ -181,16 +195,16 @@ const Page = () => {
               )}
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={saveField}
+                  onClick={() => saveField(field, tempValue)}
                   className="px-3 py-1 bg-green-600 rounded-lg hover:bg-green-700 shadow hover:shadow-green-500/50 transition"
                 >
-                  <Check className="font-extrabold"/>
+                  <Check className="font-extrabold" />
                 </button>
                 <button
                   onClick={cancelEdit}
                   className="px-3 py-1 bg-red-600 rounded-lg hover:bg-red-700 shadow hover:shadow-red-500/50 transition"
                 >
-                  <X className="font-extrabold"/>
+                  <X className="font-extrabold" />
                 </button>
               </div>
             </div>
@@ -208,18 +222,17 @@ const Page = () => {
         </div>
       ))}
 
-      {/* Socials */}
       <div className="p-5 bg-gray-900 rounded-2xl shadow-lg hover:shadow-blue-500/30 transition-shadow duration-300 space-y-3">
         <h2 className="text-lg font-semibold mb-2">Socials</h2>
-        {["github", "linkedin", "portfolio"].map((key) => (
+        {["github", "linkedin", "portfolio"].map((field) => (
           <div
-            key={key}
+            key={field}
             className="flex justify-between items-center gap-3 hover:bg-gray-800 p-2 rounded-lg transition-colors duration-200"
           >
             <span className="w-28 font-semibold">
-              {key.charAt(0).toUpperCase() + key.slice(1)}:
+              {field.charAt(0).toUpperCase() + field.slice(1)}:
             </span>
-            {editField === `socials.${key}` ? (
+            {editField === `socials.${field}` ? (
               <div className="flex gap-2 flex-1">
                 <input
                   type="text"
@@ -229,7 +242,7 @@ const Page = () => {
                 />
                 <div className="flex flex-col gap-2">
                   <button
-                    onClick={saveField}
+                    onClick={() => saveField(field, tempValue)}
                     className="px-3 py-1 bg-green-600 rounded-lg hover:bg-green-700 shadow hover:shadow-green-500/50 transition"
                   >
                     ✔
@@ -245,13 +258,13 @@ const Page = () => {
             ) : (
               <div className="flex justify-between items-center flex-1">
                 <p>
-                  {displayValue(user.socials[key as keyof typeof user.socials])}
+                  {displayValue(user.socials[field as keyof typeof user.socials])}
                 </p>
                 <button
                   onClick={() =>
                     startEditing(
-                      `socials.${key}`,
-                      user.socials[key as keyof typeof user.socials]
+                      `socials.${field}`,
+                      user.socials[field as keyof typeof user.socials]
                     )
                   }
                   className="text-blue-400 hover:underline text-sm"
@@ -264,7 +277,6 @@ const Page = () => {
         ))}
       </div>
 
-      {/* Skills */}
       <div className="p-5 bg-gray-900 rounded-2xl shadow-lg hover:shadow-blue-500/30 transition-shadow duration-300">
         <h2 className="text-lg font-semibold mb-3">Skills</h2>
         <div className="flex flex-wrap gap-2">
@@ -282,6 +294,8 @@ const Page = () => {
           )}
         </div>
       </div>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
