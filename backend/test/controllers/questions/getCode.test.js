@@ -1,10 +1,11 @@
-const { test, describe, mock, it, afterEach } = require("node:test");
+const { describe, it, beforeEach, afterEach } = require("node:test");
 const assert = require("node:assert");
+
 const getCode = require("../../../controllers/questions/getCode");
 const User = require("../../../models/User");
-const question = require("../../../models/question");
+const Ques = require("../../../models/question");
 
-function mockData() {
+function createMockRes() {
   return {
     statusCode: null,
     body: null,
@@ -12,33 +13,44 @@ function mockData() {
       this.statusCode = code;
       return this;
     },
-    json(msg) {
-      this.body = msg;
+    json(data) {
+      this.body = data;
       return this;
     },
   };
 }
 
+describe("getCode controller", () => {
 
-describe("getCode", () => {
-  let orgFunc;
-  afterEach(() => {
-    User.findOne = orgFunc;
+  let originalUserFind;
+  let originalQuesFind;
+
+  beforeEach(() => {
+    originalUserFind = User.findOne;
+    originalQuesFind = Ques.findOne;
   });
-  it("Checks for uid and qn_id", async () => {
-    const req = {
-      body: {},
-    };
-    const res = mockData();
+
+  afterEach(() => {
+    User.findOne = originalUserFind;
+    Ques.findOne = originalQuesFind;
+  });
+
+  it("should return 400 when uid or qn_id missing", async () => {
+
+    const req = { body: {} };
+    const res = createMockRes();
+
     await getCode(req, res);
+
     assert.strictEqual(res.statusCode, 400);
     assert.strictEqual(res.body.error, "Question Not Found");
-  });
-  it("should return 404 when user not found", async () => {
-    const req = { body: { uid: 1, qn_id: 1 } };
-    const res = mockData();
 
-    const orgUser = User.findOne;
+  });
+
+  it("should return 404 when user not found", async () => {
+
+    const req = { body: { uid: 1, qn_id: 1 } };
+    const res = createMockRes();
 
     User.findOne = async () => null;
 
@@ -47,46 +59,39 @@ describe("getCode", () => {
     assert.strictEqual(res.statusCode, 404);
     assert.strictEqual(res.body.error, "User not found");
 
-    User.findOne = orgUser;
   });
-  it("should return 404 when question not found", async () => {
-    const req = { body: { uid: 1, qn_id: 1 } };
-    const res = mockData();
 
-    const orgUser = User.findOne;
-    const orgQ = question.findOne;
+  it("should return 404 when question not found", async () => {
+
+    const req = { body: { uid: 1, qn_id: 1 } };
+    const res = createMockRes();
 
     User.findOne = async () => ({ solvedQuestions: [] });
-
-    question.findOne = async () => null;
+    Ques.findOne = async () => null;
 
     await getCode(req, res);
 
     assert.strictEqual(res.statusCode, 404);
     assert.strictEqual(res.body.error, "Question not found");
 
-    User.findOne = orgUser;
-    question.findOne = orgQ;
   });
 
-  it("should return 200 when completed", async () => {
+  it("should return 200 with solution when user has solved question", async () => {
+
     const req = { body: { uid: 1, qn_id: 1 } };
-    const res = mockData();
+    const res = createMockRes();
 
-    orgFunc = User.findOne;
-    const orgQ = question.findOne;
+    User.findOne = async () => ({
+      solvedQuestions: [
+        {
+          question: 1,
+          html_sol: "this is html",
+          css_sol: "this is css",
+        },
+      ],
+    });
 
-    User.findOne = async () => ({ solvedQuestions: [
-       {
-         question: 1,
-         html_sol: "this is html",
-         css_sol: "this is css"
-      }
-    ] });
-
-    question.findOne = async () => {
-      return { _id: 1 };
-    };
+    Ques.findOne = async () => ({ _id: 1 });
 
     await getCode(req, res);
 
@@ -94,6 +99,6 @@ describe("getCode", () => {
     assert.strictEqual(res.body.html_sol, "this is html");
     assert.strictEqual(res.body.css_sol, "this is css");
 
-    question.findOne = orgQ;
   });
+
 });
