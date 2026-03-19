@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
-const connection = require("../utils/db")
-connection()
+
 const QuestionSchema = mongoose.Schema({
     qNo:{
         type: Number,

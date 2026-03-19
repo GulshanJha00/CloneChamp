@@ -1,12 +1,11 @@
-const User = require("../../models/User");
 const Ques = require('../../models/question');
+const User = require("../../models/User");
+
 
 const getCode = async (req, res) => {
   
     const uid = req.body.uid;    
     const qn_id = req.body.qn_id;    
-    console.log("User id is:- " + uid);
-    console.log("Qn id is:- " + qn_id);
 
     if (!uid || !qn_id ) {
         return res.status(400).json({ error: "Question Not Found" });

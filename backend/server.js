@@ -4,7 +4,8 @@ const router = require('./routes/route')
 const cors = require("cors")
 const app = express();
 app.use(express.json())
-
+const connection = require("./utils/db")
+connection()
 app.use(helmet())
 app.use(cors({
     origin: ["https://clonechamp.vercel.app", "http://localhost:3000"]
