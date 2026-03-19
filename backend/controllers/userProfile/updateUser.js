@@ -75,7 +75,11 @@ const updateUser = async (req, res) => {
       profile: updatedProfile,
     });
   } catch (err) {
-    console.error("Update error:", err.message);
+    logger.error("Error in updateUser",{
+      route:"UpdateUser",
+      message: err.message,
+      stack: err.stack
+    })
     res.status(500).json({ error: err.message });
   }
 };
