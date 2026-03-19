@@ -7,6 +7,7 @@ import Loading from "@/app/loading";
 import { Check, X } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 interface User {
   uid: string;
@@ -34,6 +35,7 @@ const Page = () => {
   const [editField, setEditField] = useState<string | null>(null);
   const [tempValue, setTempValue] = useState<string>("");
 
+  const router = useRouter();
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -44,8 +46,6 @@ const Page = () => {
 
         const data = res.data;
         const u = data.user;
-        console.log("data is :- ", data);
-        console.log("User data is :- ", u);
 
         setUser({
           uid: u.uid,
@@ -81,35 +81,64 @@ const Page = () => {
 
   if (!user) return <Loading />;
 
-  const saveField = async (field: string, tempValue: string) => {
-    if (!field || !tempValue) return;
+ const saveField = async (field: string, tempValue: string) => {
+  if (!tempValue.trim()) return;
 
-    try {
-      console.log("Updating user field...");
+  try {
+    // SPECIAL CASE → username update
+    if (field === "username") {
 
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${field}`,
-        {
-          tempValue,
-          username: user.username,
-        }
-      );
-
-      if (response.status === 402) {
-        toast.error("User already exists. Please try something else");
+      if (tempValue === user?.username) {
+        toast.error("Please choose a different username");
         return;
       }
 
-      toast.success(`${field.charAt(0).toUpperCase() + field.slice(1)} updated successfully`);
-      setUser((prev) =>
-        prev ? { ...prev, [field]: tempValue } : prev
+      // Check username availability
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/get-user-id`,
+          { username: tempValue }
+        );
+
+        toast.error("Username already exists");
+        return;
+
+      } catch (e) {
+        // username does NOT exist → continue
+      }
+
+      // Update username
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/username`,
+        { tempValue, username: user.username }
       );
-      cancelEdit();
-    } catch (error: any) {
-      console.error("Error updating user:", error.response?.data || error.message);
-      toast.error(error.response?.data?.message || "Failed to update field");
+
+      toast.success("Username updated!");
+
+      // Update UI
+      setUser((prev) => prev ? { ...prev, username: tempValue } : prev);
+
+      // Redirect to new URL
+      router.push(`/profile/edit/${tempValue}`);
+      return;
     }
-  };
+
+    // NORMAL FIELDS
+    const res = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${field}`,
+      { tempValue, username: user?.username }
+    );
+
+    toast.success(`${field} updated!`);
+    setUser((prev) => prev ? { ...prev, [field]: tempValue } : prev);
+    cancelEdit();
+
+  } catch (err) {
+    console.error(err);
+    toast.error("Update failed");
+  }
+};
+
 
   const displayValue = (val: string) =>
     val && val.trim() !== "" ? val : "No value written";
@@ -154,7 +183,6 @@ const Page = () => {
                 if (e.target.files && e.target.files[0]) {
                   const file = e.target.files[0];
                   toast.info("Avatar selected. Upload logic pending");
-                  console.log("Selected file:", file);
                 }
               }}
             />

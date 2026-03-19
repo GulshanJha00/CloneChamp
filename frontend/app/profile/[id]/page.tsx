@@ -42,7 +42,9 @@ const Page = ({ params }: PageProps) => {
         );
 
         const data = res.data;
+        console.log(data)
         const u = data.user;
+        console.log("Uid is ", u.uid)
         setUser({
           uid: u.uid,
           username: u.username,
