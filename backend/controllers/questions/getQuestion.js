@@ -1,26 +1,34 @@
 const QuestionSchema = require("../../models/question");
 const logger = require("../../utils/logger");
+const redis = require("../../utils/redis");
 
 const getQuestion = async (req, res) => {
   try {
-    
-    const questions = await QuestionSchema.find({}).lean(); //lean plain js return karega rather than mongoose object
 
+    const cacheKey = "questions:all";
 
-    logger.info("Fetched all questions", {
-      count: questions.length
-    });
+    const cached = await redis.get(cacheKey);
+
+    if (cached) {
+      logger.info("Questions served from Redis");
+      return res.status(200).json(JSON.parse(cached));
+    }
+
+    const questions = await QuestionSchema.find({}).lean();
+
+    await redis.set(
+        cacheKey,
+        JSON.stringify(questions),
+        "EX",
+        3600
+    );
 
     return res.status(200).json(questions);
-  } catch (err) {
-    
-    logger.error("Error fetching questions", {
-      route: "getQuestion",
-      message: err.message,
-      stack: err.stack
-    });
 
+  } catch (err) {
+    logger.error("Error fetching questions", { message: err.message });
     res.status(500).json({ error: "Failed to fetch questions." });
   }
 };
+
 module.exports = getQuestion;
