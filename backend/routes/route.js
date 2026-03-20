@@ -12,7 +12,6 @@ const getUserById = require("../controllers/user/getUserById")
 const updateUser = require("../controllers/userProfile/updateUser")
 const router = express.Router()
 
-//question routes
 
 router.post("/api/upload-question",uploadQuestion)
 router.post("/api/get-target",getTarget)
@@ -31,6 +30,9 @@ router.post("/auth/get-user-id",getUserById);
 router.get("/api/get-question",getQuestion)
 router.delete("/api/delete-question/:id",deleteQuestion)
 
+router.get("/health", (req, res) => {
+    res.send("OK");
+});
 
 //userProfile Route
 router.put("/user/:value",updateUser)
