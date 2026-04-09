@@ -76,3 +76,23 @@
 {"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:43.517Z"}
 {"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:45.728Z"}
 {"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:47.361Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:42:34.334Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:42:34.338Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:42:34.403Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:38.810Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:42.887Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:46.208Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:48.420Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:50.434Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:42:52.369Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:45:17.526Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:45:17.536Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:45:17.607Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:48:02.197Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:48:02.199Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:48:02.200Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:48:02.231Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:49:44.160Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:49:44.162Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:49:44.181Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:49:44.729Z"}

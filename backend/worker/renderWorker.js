@@ -96,7 +96,13 @@ const worker = new Worker(
   },
   {
     connection: redis,
+    concurrency: 2
   }
 );
+worker.on("completed", (job, result) => {
+  console.log(`✅ Job ${job.id} completed`, result);
+});
 
-console.log("🔥 Worker started");
+worker.on("failed", (job, err) => {
+  console.log(`❌ Job ${job.id} failed`, err.message);
+});
