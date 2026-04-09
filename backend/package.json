@@ -7,12 +7,14 @@
     "test": "NODE_ENV=test node --test",
     "start": "node render-start.js",
     "dev": "nodemon server.js",
-    "postinstall": "npx playwright install chromium"
+    "postinstall": "npx playwright install chromium",
+    "worker": "node backend/worker/renderWorker.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bullmq": "^5.73.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
