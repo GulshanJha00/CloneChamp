@@ -12,7 +12,8 @@ app.use(globalLimiter);
 app.use(helmet());
 app.use(
     cors({
-        origin: ["https://clonechamp.vercel.app", "http://localhost:3000"],
+        origin: ["https://clonechamp.vercel.app", "http://localhost:3000","http://13.127.167.17:3000"],
+        
     }),
 );
 app.use(router);
@@ -20,6 +21,6 @@ app.use(router);
 connection();
 
 
-app.listen(3001, () => {
+app.listen(3001,"0.0.0.0", () => {
   console.log("Working on http://localhost:3001");
 });
