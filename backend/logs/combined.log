@@ -16,3 +16,63 @@
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-03-20T14:30:00.484Z"}
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-03-20T14:30:00.660Z"}
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-03-20T14:30:00.994Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:33:12.642Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:33:12.646Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:33:12.737Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:33:21.271Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:33:21.308Z"}
+{"level":"info","message":"Fetched target question from DB","timestamp":"2026-04-09T18:33:24.974Z","title":"It's Hero Time"}
+{"level":"info","message":"Fetched target question from DB","timestamp":"2026-04-09T18:33:24.976Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:33:36.288Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:33:36.291Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:33:59.316Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:33:59.324Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:34:23.182Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User already exists","timestamp":"2026-04-09T18:34:23.184Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:24.150Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:24.186Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:30.957Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:34:30.959Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:34:30.962Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:30.992Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:34:31.772Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:34:31.774Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"warn","message":"User not found in getUser","timestamp":"2026-04-09T18:34:48.664Z","uid":"99DD7xMaeCVbaX9CbqA6kUAfINP2"}
+{"level":"error","message":"Error while saving user UserProfile.save is not a function","route":"addUser","stack":"TypeError: UserProfile.save is not a function\n    at addUser (/Users/gulshankumar/Desktop/coding/CloneChamp/backend/controllers/user/addUser.js:43:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-04-09T18:34:48.774Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:49.029Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:34:49.062Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:37:19.320Z","uid":"99DD7xMaeCVbaX9CbqA6kUAfINP2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:37:19.323Z","uid":"99DD7xMaeCVbaX9CbqA6kUAfINP2"}
+{"level":"info","message":"User already exists","timestamp":"2026-04-09T18:37:34.915Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:37:34.916Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:37:34.953Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:37:34.983Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:37:45.417Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:37:45.422Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:37:45.424Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:37:45.455Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:37:49.706Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:24.400Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:24.401Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:25.915Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:25.916Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:38.470Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:38:38.472Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:38.474Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:38:38.504Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:38:43.235Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:44.090Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:38:44.092Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:28.535Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:28.537Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:30.599Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:30.600Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:33.545Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:39:33.547Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-09T18:39:33.548Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:39:33.579Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:39:38.681Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T18:39:38.714Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:43.517Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:45.728Z"}
+{"level":"info","message":"Question deleted successfully","qNo":"1","timestamp":"2026-04-09T18:39:47.361Z"}

@@ -62,7 +62,7 @@ const page = () => {
     try {
       await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/delete-question/${qNo}`);
       await FetchQuestion();
-      router.push("/admin");
+      router.push("/main/admin");
       setDeleted(false);
     } catch (error) {
       console.log(error);
@@ -95,7 +95,7 @@ const page = () => {
               </p>
             </div>
             <div className="rounded-lg border border-gray-600 px-4 py-2 hover:bg-gray-800 transition">
-              <Link href="/admin/form">+ Add New Question</Link>
+              <Link href="/main/admin/form">+ Add New Question</Link>
             </div>
           </header>
 

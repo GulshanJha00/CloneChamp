@@ -20,16 +20,6 @@ app.use(router);
 connection();
 
 
-const url = "https://clonechamp.onrender.com/health"
-
-setInterval(()=>{
-    https.get(url, (res)=>{
-        console.log("Self ping success:", res.statusCode);
-    }).on("error", (err) => {
-        console.log("Ping failed:", err.message);
-    });
-}, 5 * 60 * 1000);
-
 app.listen(3001, () => {
   console.log("Working on http://localhost:3001");
 });

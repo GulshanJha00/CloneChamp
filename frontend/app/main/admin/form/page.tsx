@@ -68,7 +68,7 @@ const page = () => {
 
       toast.success("Questions Uploaded");
 
-      router.push("/admin");
+      router.push("/main/admin");
     } catch (err) {
       console.error(err);
       setUploading(false);
