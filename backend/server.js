@@ -12,7 +12,7 @@ app.use(globalLimiter);
 app.use(helmet());
 app.use(
     cors({
-        origin: ["https://clonechamp.vercel.app", "http://localhost:3000","http://clonechamp.duckdns.org","http://13.234.131.137"],
+        origin: ["https://clonechamp.vercel.app", "http://localhost:3000","https://clonechamp.duckdns.org","http://13.234.131.137"],
         
     }),
 );
