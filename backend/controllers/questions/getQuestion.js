@@ -20,7 +20,7 @@ const getQuestion = async (req, res) => {
         cacheKey,
         JSON.stringify(questions),
         "EX",
-        3600
+        100
     );
 
     return res.status(200).json(questions);

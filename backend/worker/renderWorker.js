@@ -1,3 +1,6 @@
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
 const { Worker } = require("bullmq");
 const redis = require("../utils/redis");
 
@@ -5,7 +8,6 @@ const playwright = require("playwright");
 const { PNG } = require("pngjs");
 const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require("sharp");
-
 const User = require("../models/User");
 const QuestionSchema = require("../models/question");
 
@@ -95,10 +97,16 @@ const worker = new Worker(
     }
   },
   {
-    connection: redis,
-    concurrency: 2
+    connection: {
+      host: process.env.REDIS_HOST,
+      port: Number(process.env.REDIS_PORT),
+      username: process.env.REDIS_USERNAME,
+      password: process.env.REDIS_PASSWORD,
+    },
+    concurrency: 2,
   }
 );
+
 worker.on("completed", (job, result) => {
   console.log(`✅ Job ${job.id} completed`, result);
 });
