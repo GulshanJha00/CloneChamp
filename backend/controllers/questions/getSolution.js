@@ -1,4 +1,4 @@
-const renderQueue = require("../../queue/renderQueue");
+const { renderQueue, renderQueueEvents }  = require("../../queue/renderQueue");
 
 const getSolution = async (req, res) => {
   try {
@@ -7,6 +7,7 @@ const getSolution = async (req, res) => {
     if (!finalCode || !target || !uid || !title) {
       return res.status(400).json({ error: "Missing required fields" });
     }
+    console.log("Job is in queue")
 
     const job = await renderQueue.add(
       "evaluate",
@@ -29,10 +30,13 @@ const getSolution = async (req, res) => {
       },
     );
 
-    return res.status(200).json({
-      message: "Processing started",
-      jobId: job.id,
-    });
+    const result = await job.waitUntilFinished(renderQueueEvents);
+
+
+return res.status(200).json({
+  percentageMatch: result.percentageMatch,
+});
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({

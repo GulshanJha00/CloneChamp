@@ -10,6 +10,9 @@ const pixelmatch = require("pixelmatch").default || require("pixelmatch");
 const sharp = require("sharp");
 const User = require("../models/User");
 const QuestionSchema = require("../models/question");
+const connection = require("../utils/db")
+
+connection()
 
 const worker = new Worker(
   "render-queue",
@@ -17,6 +20,8 @@ const worker = new Worker(
     const { uid, title, finalCode, target, htmlCode, cssCode } = job.data;
 
     let browser;
+console.log("Worker started")
+
 
     try {
       const [user, question] = await Promise.all([

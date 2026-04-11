@@ -105,3 +105,86 @@
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T20:19:10.046Z"}
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T20:20:05.172Z"}
 {"level":"info","message":"Questions served from Redis","timestamp":"2026-04-09T20:20:05.206Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:35:08.130Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:35:08.133Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:35:08.288Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:35:11.512Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:35:11.544Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:19.302Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:19.304Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:19.306Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:19.337Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:21.061Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:21.062Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:21.064Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:21.096Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:23.478Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:23.479Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:23.480Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:23.550Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:34.607Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:34.619Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:36:34.620Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:36:34.651Z"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:39:34.390Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:39:34.405Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:39:34.484Z"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:54:16.004Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:54:16.019Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:57:45.176Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:57:45.179Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:57:45.347Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:57:47.554Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T11:57:47.586Z"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:57:48.721Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:57:48.722Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:58:35.690Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:58:35.693Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:58:35.698Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:58:35.699Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:19.460Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:20.367Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:22.258Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:24.939Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:29.272Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:40.278Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T11:59:40.279Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:59:40.283Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T11:59:40.285Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:03:05.941Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:03:08.482Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:03:14.770Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:03:17.780Z","title":"It's Hero Time"}
+{"level":"info","message":"Fetched target question from DB","timestamp":"2026-04-11T12:05:46.090Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:05:54.009Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:06:24.899Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:06:24.900Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:06:24.926Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:06:24.932Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:06:35.300Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:06:50.462Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:06:50.464Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:06:50.553Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:06:52.375Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:06:52.406Z"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:06:53.530Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:06:53.532Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:08:17.355Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:08:17.357Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:08:17.358Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:08:17.359Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:10:18.238Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:17:41.395Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:17:41.398Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:17:41.495Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:17:43.249Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:17:43.281Z"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:17:44.718Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:17:44.719Z","title":"It's Hero Time"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:55:02.415Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"User fetched successfully","timestamp":"2026-04-11T12:55:02.425Z","uid":"lrKm640RbYbGPbUT2sSTGstuTgL2"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:55:02.487Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:55:03.888Z"}
+{"level":"info","message":"Questions served from Redis","timestamp":"2026-04-11T12:55:03.918Z"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:55:15.959Z","title":"It's Hero Time"}
+{"level":"info","message":"Target question served from Redis","timestamp":"2026-04-11T12:55:15.960Z","title":"It's Hero Time"}

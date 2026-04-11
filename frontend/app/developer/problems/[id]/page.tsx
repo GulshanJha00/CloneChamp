@@ -6,7 +6,7 @@ import axios from "axios";
 import Footer from "@/components/Landing/footer";
 import { toast, ToastContainer } from "react-toastify";
 import { getAuth } from "firebase/auth"; // make sure Firebase is configured
-import Sponser from "@/components/sponser/Sponser"
+import Sponser from "@/components/sponser/Sponser";
 import ProtectedRoute from "@/app/protectedRoute";
 
 interface Question {
@@ -33,13 +33,13 @@ const Page = () => {
   const [finalCode, setFinalCode] = useState("");
   const [htmlCode, setHtmlCode] = useState(
     `<h1 class="font-bold underline">Your display will be shown here</h1>
-<p>Recreate the target given below</p>`
+<p>Recreate the target given below</p>`,
   );
   const [cssCode, setCssCode] = useState(
     `p {
       font-style: italic;
       font-weight: 800;
-}`
+}`,
   );
   const [responseData, setResponseData] = useState<Question>(defaultQuestion);
   const [showTarget, setShowTarget] = useState(false);
@@ -59,10 +59,15 @@ const Page = () => {
       `${process.env.NEXT_PUBLIC_API_URL}/api/get-target`,
       {
         title,
-      }
+      },
     );
-    if (response.data && response.data.length > 0) {
+    console.log(response.data);
+    console.log("API:", response.data);
+
+    if (Array.isArray(response.data)) {
       setResponseData(response.data[0]);
+    } else {
+      setResponseData(response.data); 
     }
   };
   useEffect(() => {
@@ -72,17 +77,17 @@ const Page = () => {
   //get the code of the user
   const getCode = async () => {
     const qn_id = responseData._id;
-    console.log(qn_id)
+    console.log(qn_id);
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/api/get-code`,
       {
         uid,
-        qn_id ,
-      }
+        qn_id,
+      },
     );
-    console.log(response.data)
-    setHtmlCode(response.data.html_sol)
-    setCssCode(response.data.css_sol)
+    console.log(response.data);
+    setHtmlCode(response.data.html_sol);
+    setCssCode(response.data.css_sol);
   };
 
   useEffect(() => {
@@ -112,6 +117,13 @@ const Page = () => {
 
   const handleRun = async () => {
     setRun("Running..");
+
+    console.log("SENDING:", {
+  htmlCode,
+  cssCode,
+  finalCode,
+  target: responseData.imageUrl,
+});
     if (!finalCode || !responseData.imageUrl) {
       toast.error("No code written");
     }
@@ -125,7 +137,7 @@ const Page = () => {
           target: responseData.imageUrl,
           htmlCode,
           cssCode,
-        }
+        },
       );
       if (response.data.percentageMatch >= 85) {
         toast.success(
@@ -143,7 +155,7 @@ const Page = () => {
               border: "1px solid white",
               color: "white",
             },
-          }
+          },
         );
       } else {
         toast.error(
@@ -161,7 +173,7 @@ const Page = () => {
               border: "1px solid white",
               color: "white",
             },
-          }
+          },
         );
       }
     } catch (error) {
@@ -170,8 +182,7 @@ const Page = () => {
     }
   };
   return (
-        <ProtectedRoute>
-
+    <ProtectedRoute>
       <div className="lg:hidden overflow-hidden fixed inset-0 flex items-center justify-center bg-black text-white z-50 p-4 text-center">
         <div className="bg-white/10 border border-white/20 backdrop-blur-sm p-6 rounded-xl shadow-lg max-w-sm">
           <h2 className="text-xl font-bold mb-2">
@@ -300,7 +311,7 @@ const Page = () => {
                 </div>
               </div>
             </div>
-              <Sponser/>
+            <Sponser />
           </div>
 
           <div className="w-full h-full bg-gray-900 shadow-lg">
@@ -310,11 +321,14 @@ const Page = () => {
             <div className="p-5  text-sm space-y-4">
               <div className="gap-6">
                 <div>
-                  <img
+                  {responseData.imageUrl && (
+                    <img
                     src={responseData.imageUrl}
                     alt={responseData.title}
                     className="w-full h-80 object-contain border-4 border-gray-700 rounded-lg shadow-lg hover:scale-[1.01]  transition-transform"
                   />
+                  )}
+                  
                 </div>
 
                 {/* Content Section */}
@@ -335,8 +349,8 @@ const Page = () => {
                           responseData.difficulty === "hard"
                             ? "bg-red-700 text-white"
                             : responseData.difficulty === "medium"
-                            ? "bg-yellow-700 text-white"
-                            : "bg-green-700 text-white"
+                              ? "bg-yellow-700 text-white"
+                              : "bg-green-700 text-white"
                         }`}
                       >
                         {responseData.difficulty}

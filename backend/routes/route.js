@@ -12,7 +12,6 @@ const getUserById = require("../controllers/user/getUserById")
 const updateUser = require("../controllers/userProfile/updateUser")
 const router = express.Router()
 
-
 router.post("/api/upload-question",uploadQuestion)
 router.post("/api/get-target",getTarget)
 router.post("/api/get-solution",getSolution)
@@ -24,18 +23,14 @@ router.post("/auth/get-user", getUser);
 router.post("/auth/add-user",addUser);
 router.post("/auth/get-user-id",getUserById);
 
-
 //get routes
-
 router.get("/api/get-question",getQuestion)
-router.delete("/api/delete-question/:id",deleteQuestion)
-
 router.get("/health", (req, res) => {
     res.send("OK");
 });
 
 //userProfile Route
 router.put("/user/:value",updateUser)
-
+router.delete("/api/delete-question/:id",deleteQuestion)
 
 module.exports =  router

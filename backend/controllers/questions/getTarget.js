@@ -19,6 +19,7 @@ const getTarget = async (req, res) => {
       logger.info("Target question served from Redis", {
         title: target_title
       });
+      console.log(JSON.parse(cached))
 
       return res.status(200).json(JSON.parse(cached));
     }

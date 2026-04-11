@@ -4,6 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 import LoadWait from "./LoadWait";
 import { Search } from "lucide-react";
+import Image from "next/image";
 interface Question {
   qNo: number;
   title: string;
@@ -117,9 +118,12 @@ const Problems = () => {
               href={`/developer/problems/${val.title}`}
               className="relative  hover:scale-[1.01] flex flex-col bg-white/5 hover:bg-white/10 border border-gray-700 rounded-xl shadow-md overflow-hidden transition-all duration-300"
             >
-              <img
+              <Image
+              height={100}
+              width={100}
                 src={val.imageUrl}
                 alt="Challenge"
+                  priority={id < 3}
                 className="w-full h-52 object-contain bg-gray-900 border-b border-gray-700"
               />
               <div className="flex  flex-col h-full p-4">
