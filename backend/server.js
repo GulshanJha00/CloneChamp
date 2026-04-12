@@ -8,7 +8,10 @@ const connection = require("./utils/db");
 
 app.use(express.json());
 app.get("/health", (req, res) => {
-    res.send("OK");
+    res.send({
+        message: "ok",
+        server: os.hostname(),
+  });
 });
 app.use(globalLimiter);
 app.use(helmet());
