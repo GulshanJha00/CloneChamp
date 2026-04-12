@@ -25,9 +25,7 @@ router.post("/auth/get-user-id",getUserById);
 
 //get routes
 router.get("/api/get-question",getQuestion)
-router.get("/health", (req, res) => {
-    res.send("OK");
-});
+
 
 //userProfile Route
 router.put("/user/:value",updateUser)

@@ -5,9 +5,11 @@ const cors = require("cors");
 const app = express();
 const { globalLimiter } = require("./middleware/rateLimiter");
 const connection = require("./utils/db");
-const https = require("https")
 
 app.use(express.json());
+app.get("/health", (req, res) => {
+    res.send("OK");
+});
 app.use(globalLimiter);
 app.use(helmet());
 app.use(
